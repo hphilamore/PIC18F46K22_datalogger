@@ -1,0 +1,13 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F46K22 -DL -O11111114 -fo16 -N"\\Mac\Home\Documents\Code\microC\speed_test\Blink2.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"\\Mac\Home\Documents\Code\microC\speed_test\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" "Blink2.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl"	 
+hint: 0	1139	Available RAM: 3875 [bytes], Available ROM: 65536 [bytes]	 
+diagnostics: 0	122	Compilation Started	__Lib_Delays.c
+diagnostics: 172	123	Compiled Successfully	__Lib_Delays.c
+diagnostics: 0	122	Compilation Started	Blink2.c
+diagnostics: 39	123	Compiled Successfully	Blink2.c
+diagnostics: 0	127	All files Compiled in 63 ms	 
+hint: 0	1144	Used RAM (bytes): 0 (1%)  Free RAM (bytes): 3875 (99%)	Used RAM (bytes): 0 (1%)  Free RAM (bytes): 3875 (99%)
+hint: 0	1144	Used ROM (bytes): 102 (1%)  Free ROM (bytes): 65434 (99%)	Used ROM (bytes): 102 (1%)  Free ROM (bytes): 65434 (99%)
+diagnostics: 0	125	Project Linked Successfully	Blink2.mcppi
+diagnostics: 0	128	Linked in 46 ms	 
+diagnostics: 0	129	Project 'Blink2.mcppi' completed: 203 ms	 
+diagnostics: 0	103	Finished successfully: 29 Jul 2019, 15:54:44	Blink2.mcppi

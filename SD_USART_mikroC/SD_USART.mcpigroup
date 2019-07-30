@@ -1,0 +1,8 @@
+[PROJECTS]
+Count=4
+Project0=..\USART_test5\USART_test.mcppi
+Project1=..\18F46K22_uart_for_Tests2\USART_test.mcppi
+Project2=..\USART_test5\USART_test5.mcppi
+Project3=..\USART_test_copy_forum_uart\USART_test5.mcppi
+[ActiveProject]
+Index=0

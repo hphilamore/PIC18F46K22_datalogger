@@ -1,0 +1,11 @@
+0	1	mikroCPIC1618.exe -MSF -DBG -pP18F46K22 -DL -O11111114 -fo16 -N"\\Mac\Home\Documents\Code\microC\SD_test\SD.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"\\Mac\Home\Documents\Code\microC\SD_test\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FT800\Uses\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FT810\Uses\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FT812\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FT800\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FT810\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FT812\Uses\" "SD.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_SPI_c345d014.mcl" "__Lib_UART_c67d67.mcl" "__Lib_Mmc.mcl" "__Lib_FAT32_Driver.mcl" "__Lib_FAT32_Defs.mcl" "__Lib_FAT32.mcl" "__Lib_FT800_Defs.mcl" "__Lib_FT800.mcl" "__Lib_FT810_Defs.mcl" "__Lib_FT810.mcl" "__Lib_FT812_Defs.mcl" "__Lib_FT812.mcl"	 
+hint: 0	1139	Available RAM: 3875 [bytes], Available ROM: 65536 [bytes]	 
+diagnostics: 0	122	Compilation Started	SD.c
+diagnostics: 140	123	Compiled Successfully	SD.c
+diagnostics: 0	127	All files Compiled in 94 ms	 
+hint: 0	1144	Used RAM (bytes): 2410 (62%)  Free RAM (bytes): 1465 (38%)	Used RAM (bytes): 2410 (62%)  Free RAM (bytes): 1465 (38%)
+hint: 0	1144	Used ROM (bytes): 33588 (51%)  Free ROM (bytes): 31948 (49%)	Used ROM (bytes): 33588 (51%)  Free ROM (bytes): 31948 (49%)
+diagnostics: 0	125	Project Linked Successfully	SD.mcppi
+diagnostics: 0	128	Linked in 172 ms	 
+diagnostics: 0	129	Project 'SD.mcppi' completed: 344 ms	 
+diagnostics: 0	103	Finished successfully: 30 Jul 2019, 09:41:39	SD.mcppi

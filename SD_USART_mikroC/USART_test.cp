@@ -451,22 +451,16 @@ void main() {
 
 
 
-
  ANSELC = 0;
  ANSELD = 0;
-
-
- ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
-#line 130 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
- while(1){
- int Kelvin;
-
- Kelvin = ADC_Get_Sample(0);
  delay_ms(1000);
+
+ logging_Init();
+#line 128 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ while(1){
  UART1_Write_Text("Hello");
  Delay_ms(1000);
-
- UART1_Write(Kelvin);
+ UART1_Write(13);
  }
 }
 

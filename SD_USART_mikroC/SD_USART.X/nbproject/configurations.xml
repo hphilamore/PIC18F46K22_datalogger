@@ -8,7 +8,7 @@
     <logicalFolder name="LoadableFiles"
                    displayName="Prebuilt Files"
                    projectFiles="true">
-      <itemPath>/Users/hemma/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/SD_USART.hex</itemPath>
+      <itemPath>/Users/hemma/Documents/Code/microC/SD_USART/SD_USART.hex</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"

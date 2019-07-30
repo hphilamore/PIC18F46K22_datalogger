@@ -15,23 +15,21 @@ void logging_Init();
 
 void main() {
 
-  OSCCON = 0b01110000;  // bit7: device enters SLEEP on sleep instruction[0]
+    OSCCON = 0b01110000;  // bit7: device enters SLEEP on sleep instruction[0]
                                        // bit6-4: HFINTOSC 16MHz [111]
                                        // bit3: status bit [0]
                                        // bit2: status bit [0]
                                        // bit1-0: clock defined by CONFIG bits [00]
 
-  OSCTUNE = 0b00000000; // bit7:  device clock derived from the MFINTOSC or HFINTOSC source
+    OSCTUNE = 0b00000000; // bit7:  device clock derived from the MFINTOSC or HFINTOSC source
                                        // bit6: PLL disabled [0]
                                        // bit5-0: oscillator tuning [000000]
-           
-
+                                       
   ANSELC = 0;         // configure all PORTC pins as digital
   ANSELD = 0;         // configure all PORTD pins as digital
-  
-  // initialize ADC module with voltage references: VSS - FVR(4.096V)
-  ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
-  
+  delay_ms(1000);     // wait a second
+
+  logging_Init();
   /*// initialize SPI1 module at lowest speed
   SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV64, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
 
@@ -128,14 +126,9 @@ void main() {
   //UART1_Init(19200);
 
     while(1){
-             int Kelvin;
-             // read analog voltage and convert it to Kelvin (0.4 = 100*4.096/1024)
-             Kelvin = ADC_Get_Sample(0);
-             delay_ms(1000);
              UART1_Write_Text("Hello");
              Delay_ms(1000);
-             //UART1_Write(13);
-             UART1_Write(Kelvin);
+             UART1_Write(13);
     }
 }
 

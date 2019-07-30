@@ -19,6 +19,15 @@ __fzins
 __low_savebsr
 __low_savestatus
 __low_savewreg
+_adc_external_ref
+_adc_external_vrefh
+_adc_external_vrefl
+_adc_internal_fvrh1
+_adc_internal_fvrh2
+_adc_internal_fvrh4
+_adc_internal_ref
+_adc_internal_vrefh
+_adc_internal_vrefl
 _spi_clk_idle_high
 _spi_clk_idle_low
 _spi_data_sample_end
@@ -57,6 +66,11 @@ acqt1
 acqt1_bit
 acqt2
 acqt2_bit
+adc_get_sample
+adc_get_sample_ptr
+adc_init
+adc_init_advanced
+adc_read
 adcmd
 adcmd_bit
 adcon0
@@ -1166,6 +1180,7 @@ mul_32x32_fp
 mul_32x32_s
 mul_32x32_u
 mul_8x8_s
+mult_mask
 n
 n_bit
 not_a
@@ -2439,6 +2454,7 @@ vdirmag
 vdirmag_bit
 vpp
 vpp_bit
+vref_mask
 vrefcon0
 vrefcon1
 vrefcon2

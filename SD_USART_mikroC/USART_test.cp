@@ -436,6 +436,9 @@ __HANDLE fileHandle;
 char buffer[114];
 short i;
 
+
+void logging_Init();
+
 void main() {
 
  OSCCON = 0b01110000;
@@ -452,10 +455,21 @@ void main() {
  ANSELD = 0;
  delay_ms(1000);
 
+ logging_Init();
+#line 128 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ while(1){
+ UART1_Write_Text("Hello");
+ Delay_ms(1000);
+ UART1_Write(13);
+ }
+}
+
+void logging_Init(){
 
  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV64, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
 
  UART1_Init(9600);
+
  UART1_Write_Text("\r\n\nInitialize FAT library ... ");
  delay_ms(2000);
 
@@ -542,13 +556,4 @@ void main() {
 
  delay_ms(2000);
  UART1_Write_Text("\r\n\r\n***** END *****");
-
-
-
-
- while(1){
- UART1_Write_Text("Hello");
- Delay_ms(1000);
- UART1_Write(13);
- }
 }

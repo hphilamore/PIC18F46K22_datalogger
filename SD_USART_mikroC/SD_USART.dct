@@ -1078,6 +1078,7 @@ late2
 late2_bit
 lfiofs
 lfiofs_bit
+logging_init
 longint2double
 longjmp
 longword2double

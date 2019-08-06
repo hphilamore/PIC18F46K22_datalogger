@@ -451,16 +451,43 @@ void main() {
 
 
 
+ ANSELA = 0;
  ANSELC = 0;
  ANSELD = 0;
+
+
+ ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
  delay_ms(1000);
 
  logging_Init();
-#line 128 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 132 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  while(1){
- UART1_Write_Text("Hello");
+ int R0;
+ char R0_[6];
+
+
+
+ R0 = ADC_Get_Sample(0);
+ WordToStr(R0, R0_);
+
  Delay_ms(1000);
- UART1_Write(13);
+
+
+ fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
+
+ UART1_Write_Text(R0_);
+ i = FAT32_Write(fileHandle, R0_, 6);
+ i = FAT32_Write(fileHandle, "\n", 6);
+ if(i == 0)
+ UART1_Write_Text("OK");
+ else
+ UART1_Write_Text("writing error");
+
+
+ i = FAT32_Close(fileHandle);
+
+
+
  }
 }
 
@@ -495,6 +522,7 @@ void logging_Init(){
  UART1_Write_Text("error creating folder");
 
  delay_ms(2000);
+
 
  UART1_Write_Text("\r\n\r\nCreate 'Log.txt' file ... ");
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);

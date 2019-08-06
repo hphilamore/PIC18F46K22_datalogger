@@ -49,17 +49,22 @@ File2=FAT32_Defs
 File3=FAT32_Driver
 File4=Mmc
 File5=SPI
-Count=6
+File6=ADC
+File7=Conversions
+File8=C_String
+Count=9
 [INTERRUPT_DEFS]
 VECTOR_MODE=0
 IVT_BASE=00000008
 [EXPANDED_NODES]
-Count=0
+0=SD_USART.mcppi
+Count=1
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
+1=System Libraries
 911=Additional Libraries
 912=FAT32 Library
-Count=3
+Count=4
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]

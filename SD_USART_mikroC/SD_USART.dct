@@ -71,6 +71,7 @@ adc_get_sample_ptr
 adc_init
 adc_init_advanced
 adc_read
+adc_to_file
 adcmd
 adcmd_bit
 adcon0
@@ -1533,6 +1534,7 @@ r_w
 r_w_bit
 r_w_ssp1stat_bit
 r0
+r0_
 r1
 r10
 r11

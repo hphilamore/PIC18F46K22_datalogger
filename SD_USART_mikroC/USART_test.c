@@ -9,9 +9,12 @@ sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 __HANDLE fileHandle;   // only one file can be opened
 char buffer[114];
 short i;
+//int R0;
+char R0_[6];
 
 // prototypes
 void logging_Init();
+void adc_to_file();
 
 void main() {
 
@@ -34,100 +37,7 @@ void main() {
   delay_ms(1000);     // wait a second
 
   logging_Init();
-  /*// initialize SPI1 module at lowest speed
-  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV64, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
 
-  UART1_Init(9600);   // initialize UART1 module at 9600 baud
-
-  UART1_Write_Text("\r\n\nInitialize FAT library ... ");
-  delay_ms(2000);     // wait 2 secods
-
-  // initialize FAT32 library (& SD card)
-  i = FAT32_Init();
-  if(i != 0)
-  {  // if there was a problem while initializing the FAT32 library
-    UART1_Write_Text("Error initializing FAT library!");
-  }
-
-  else
-  {  // the FAT32 library (& SD card) was (were) initialized
-    // re-initialize SPI1 module at highest speed
-    SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
-    UART1_Write_Text("FAT Library initialized");
-    delay_ms(2000);     // wait 2 seconds
-
-    // create a new folder with name 'Test Dir'
-    UART1_Write_Text("\r\n\r\nCreate 'Test Dir' folder ... ");
-    if(FAT32_MakeDir("Test Dir") == 0)
-      UART1_Write_Text("OK");
-    else
-      UART1_Write_Text("error creating folder");
-
-    delay_ms(2000);     // wait 2 seconds
-    // create (or open if already exists) a text file 'Log.txt'
-    UART1_Write_Text("\r\n\r\nCreate 'Log.txt' file ... ");
-    fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
-    if(fileHandle == 0)
-      UART1_Write_Text("OK");
-    else
-      UART1_Write_Text("error creating file or file already exists!");
-
-    delay_ms(2000);     // wait 2 seconds
-    // write some thing to the text file
-    UART1_Write_Text("\r\nWriting to the text file 'Log.txt' ... ");
-    i = FAT32_Write(fileHandle, "Hello,\r\nThis is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\nHave a nice day ...", 113);
-    if(i == 0)
-      UART1_Write_Text("OK");
-    else
-      UART1_Write_Text("writing error");
-
-    delay_ms(2000);     // wait 2 seconds
-    // now close the file (Log.txt)
-    UART1_Write_Text("\r\nClosing the file 'Log.txt' ... ");
-    i = FAT32_Close(fileHandle);
-    if(i == 0)
-      UART1_Write_Text("OK");
-    else
-      UART1_Write_Text("closing error");
-
-    delay_ms(2000);     // wait 2 seconds
-    // reading 'Log.txt' file
-    UART1_Write_Text("\r\n\r\nReading 'Log.txt' file:");
-    delay_ms(2000);     // wait 2 seconds
-
-    // open 'Log.txt' file with read permission
-    UART1_Write_Text("\r\nOpen 'Log.txt' file ... ");
-    fileHandle = FAT32_Open("Log.txt", FILE_READ);
-    if(fileHandle != 0)
-      UART1_Write_Text("error opening file");
-    else
-    {  // open file OK
-      UART1_Write_Text("OK");
-      delay_ms(2000);     // wait 2 seconds
-      // print the whole file
-      UART1_Write_Text("\r\nPrint 'log.txt' file:\r\n\r");
-      delay_ms(2000);     // wait 2 seconds
-      // read 113 bytes from fileHandler (Log.txt)and store in buffer
-      FAT32_Read(fileHandle, buffer, 113);
-      // now print the whole buffer
-      UART1_Write_Text(buffer);
-
-      delay_ms(2000);     // wait 2 seconds
-      // now close the file
-      UART1_Write_Text("\r\n\r\nClosing the file 'log.txt' ... ");
-      i = FAT32_Close(fileHandle);
-      if(i == 0)
-        UART1_Write_Text("OK");
-      else
-        UART1_Write_Text("closing error");
-    }
-  }
-
-  delay_ms(2000);     // wait 2 seconds
-  UART1_Write_Text("\r\n\r\n***** END *****");*/
-
-  //while(1) ;  // endless loop
-  //UART1_Init(19200);
 
     while(1){
              int R0;
@@ -135,13 +45,14 @@ void main() {
              //UART1_Write_Text("Hello");
              //int K;
              //String K_;
-             R0 = ADC_Get_Sample(0);
+             R0 = ADC_Get_Sample(2);
              WordToStr(R0, R0_);
              //UART1_Write_Text(R0_);
+             adc_to_file();
              Delay_ms(1000);
              
              
-              fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
+             /*fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
               // write some thing to the text file
               UART1_Write_Text(R0_);
               i = FAT32_Write(fileHandle, R0_, 6);
@@ -152,11 +63,26 @@ void main() {
                 UART1_Write_Text("writing error");
 
               // now close the file (Log.txt)
-              i = FAT32_Close(fileHandle);
+              i = FAT32_Close(fileHandle);*/
       
       
              //UART1_Write(13);
     }
+}
+
+void adc_to_file(){
+  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
+  // write some thing to the text file
+
+  if(i == 0)
+    UART1_Write_Text(R0_);
+    i = FAT32_Write(fileHandle, R0_, 6);
+    i = FAT32_Write(fileHandle, "\n", 6);
+  else
+    UART1_Write_Text("writing error");
+
+  // now close the file (Log.txt)
+  i = FAT32_Close(fileHandle);
 }
 
 void logging_Init(){

@@ -457,7 +457,9 @@ void main() {
  ANSELD = 0;
 
 
- ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
+
+
+ ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH1);
  delay_ms(1000);
 
  logging_Init();
@@ -466,7 +468,7 @@ void main() {
  while(1){
 
  ReadADC_and_Log();
-#line 64 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 66 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
 }
 

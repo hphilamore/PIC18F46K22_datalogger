@@ -31,7 +31,9 @@ void main() {
   ANSELD = 0;         // configure all PORTD pins as digital
   
   // initialize ADC module with voltage references: VSS - FVR(4.096V)
-  ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
+  // ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
+  // initialize ADC module with voltage references: VSS - FVR(1.024V)
+  ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH1);
   delay_ms(1000);     // wait a second
 
   logging_Init();

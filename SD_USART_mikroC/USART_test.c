@@ -9,8 +9,6 @@ sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 __HANDLE fileHandle;   // only one file can be opened
 char buffer[114];
 short i;
-//int R0;
-char R0_[6];
 
 // prototypes
 void logging_Init();
@@ -42,47 +40,26 @@ void main() {
     while(1){
              int R0;
              char R0_[6];
-             //UART1_Write_Text("Hello");
-             //int K;
-             //String K_;
-             R0 = ADC_Get_Sample(2);
+             R0 = ADC_Get_Sample(0);
              WordToStr(R0, R0_);
              //UART1_Write_Text(R0_);
-             adc_to_file();
              Delay_ms(1000);
              
-             
-             /*fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
-              // write some thing to the text file
-              UART1_Write_Text(R0_);
-              i = FAT32_Write(fileHandle, R0_, 6);
-              i = FAT32_Write(fileHandle, "\n", 6);
-              if(i == 0)
-                UART1_Write_Text("OK");
-              else
-                UART1_Write_Text("writing error");
-
-              // now close the file (Log.txt)
-              i = FAT32_Close(fileHandle);*/
-      
-      
+             // open the file
+             fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
+             // write some thing to the text file
+             UART1_Write_Text(R0_);
+             UART1_Write_Text("\n");
+             i = FAT32_Write(fileHandle, R0_, 6);
+             i = FAT32_Write(fileHandle, "\n", 6);
+             if(i != 0)
+             UART1_Write_Text("writing error");
              //UART1_Write(13);
+
+             // now close the file (Log.txt)
+             i = FAT32_Close(fileHandle);
+
     }
-}
-
-void adc_to_file(){
-  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
-  // write some thing to the text file
-
-  if(i == 0)
-    UART1_Write_Text(R0_);
-    i = FAT32_Write(fileHandle, R0_, 6);
-    i = FAT32_Write(fileHandle, "\n", 6);
-  else
-    UART1_Write_Text("writing error");
-
-  // now close the file (Log.txt)
-  i = FAT32_Close(fileHandle);
 }
 
 void logging_Init(){
@@ -177,5 +154,5 @@ void logging_Init(){
   }
 
   delay_ms(2000);     // wait 2 seconds
-  UART1_Write_Text("\r\n\r\n***** END *****");
+  UART1_Write_Text("\r\n\r\n***** END *****\r\n\r\n");
 }

@@ -436,8 +436,6 @@ __HANDLE fileHandle;
 char buffer[114];
 short i;
 
-char R0_[6];
-
 
 void logging_Init();
 void adc_to_file();
@@ -468,31 +466,26 @@ void main() {
  while(1){
  int R0;
  char R0_[6];
-
-
-
- R0 = ADC_Get_Sample(2);
+ R0 = ADC_Get_Sample(0);
  WordToStr(R0, R0_);
 
- adc_to_file();
  Delay_ms(1000);
-#line 70 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
- }
-}
 
-void adc_to_file(){
+
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
 
  UART1_Write_Text(R0_);
+ UART1_Write_Text("\n");
  i = FAT32_Write(fileHandle, R0_, 6);
  i = FAT32_Write(fileHandle, "\n", 6);
- if(i == 0)
- UART1_Write_Text("OK");
- else
+ if(i != 0)
  UART1_Write_Text("writing error");
 
 
+
  i = FAT32_Close(fileHandle);
+
+ }
 }
 
 void logging_Init(){
@@ -587,5 +580,5 @@ void logging_Init(){
  }
 
  delay_ms(2000);
- UART1_Write_Text("\r\n\r\n***** END *****");
+ UART1_Write_Text("\r\n\r\n***** END *****\r\n\r\n");
 }

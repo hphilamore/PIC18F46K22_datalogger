@@ -12,7 +12,7 @@ short i;
 
 // prototypes
 void logging_Init();
-void adc_to_file();
+void ReadADC_and_Log();
 
 void main() {
 
@@ -38,13 +38,15 @@ void main() {
 
 
     while(1){
-             int R0;
+    
+             ReadADC_and_Log();
+             /*int R0;
              char R0_[6];
              R0 = ADC_Get_Sample(0);
              WordToStr(R0, R0_);
              //UART1_Write_Text(R0_);
              Delay_ms(1000);
-             
+
              // open the file
              fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
              // write some thing to the text file
@@ -57,10 +59,34 @@ void main() {
              //UART1_Write(13);
 
              // now close the file (Log.txt)
-             i = FAT32_Close(fileHandle);
+             i = FAT32_Close(fileHandle);*/
 
     }
 }
+
+void ReadADC_and_Log(){
+     int R0;
+     char R0_[6];
+     R0 = ADC_Get_Sample(0);
+     WordToStr(R0, R0_);
+     //UART1_Write_Text(R0_);
+     Delay_ms(1000);
+
+     // open the file
+     fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
+     // write some thing to the text file
+     UART1_Write_Text(R0_);
+     UART1_Write_Text("\n");
+     i = FAT32_Write(fileHandle, R0_, 6);
+     i = FAT32_Write(fileHandle, "\n", 6);
+     if(i != 0)
+     UART1_Write_Text("writing error");
+     //UART1_Write(13);
+
+     // now close the file (Log.txt)
+     i = FAT32_Close(fileHandle);
+}
+
 
 void logging_Init(){
 // initialize SPI1 module at lowest speed

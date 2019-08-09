@@ -438,7 +438,7 @@ short i;
 
 
 void logging_Init();
-void adc_to_file();
+void ReadADC_and_Log();
 
 void main() {
 
@@ -464,6 +464,13 @@ void main() {
 
 
  while(1){
+
+ ReadADC_and_Log();
+#line 64 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ }
+}
+
+void ReadADC_and_Log(){
  int R0;
  char R0_[6];
  R0 = ADC_Get_Sample(0);
@@ -484,9 +491,8 @@ void main() {
 
 
  i = FAT32_Close(fileHandle);
-
- }
 }
+
 
 void logging_Init(){
 

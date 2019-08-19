@@ -64,7 +64,7 @@ Count=1
 1=System Libraries
 911=Additional Libraries
 912=FAT32 Library
-Count=4
+Count=5
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]

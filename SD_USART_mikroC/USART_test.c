@@ -68,18 +68,27 @@ void main() {
 
 void ReadADC_and_Log(){
      int R0;
+     int R1;
      char R0_[6];
+     char R1_[6];
+     // read analog voltage in mV
      R0 = ADC_Get_Sample(0);
+     R1 = ADC_Get_Sample(1);
      WordToStr(R0, R0_);
+     WordToStr(R1, R1_);
      //UART1_Write_Text(R0_);
      Delay_ms(1000);
 
      // open the file
-     fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
+     fileHandle = FAT32_Open("Log_.txt", FILE_APPEND);
      // write some thing to the text file
      UART1_Write_Text(R0_);
+     UART1_Write_Text("\t");
+     UART1_Write_Text(R1_);
      UART1_Write_Text("\n");
      i = FAT32_Write(fileHandle, R0_, 6);
+     i = FAT32_Write(fileHandle, "\t", 6);
+     i = FAT32_Write(fileHandle, R1_, 6);
      i = FAT32_Write(fileHandle, "\n", 6);
      if(i != 0)
      UART1_Write_Text("writing error");

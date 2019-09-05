@@ -486,7 +486,7 @@ void ReadADC_and_Log(){
  Delay_ms(1000);
 
 
- fileHandle = FAT32_Open("Log_.txt", FILE_APPEND);
+ fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
 
  UART1_Write_Text(R0_);
  UART1_Write_Text("\t");
@@ -548,7 +548,8 @@ void logging_Init(){
  delay_ms(2000);
 
  UART1_Write_Text("\r\nWriting to the text file 'Log.txt' ... ");
- i = FAT32_Write(fileHandle, "Hello,\r\nThis is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\nHave a nice day ...", 113);
+ i = FAT32_Write(fileHandle, "This is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\n", 113);
+
  if(i == 0)
  UART1_Write_Text("OK");
  else

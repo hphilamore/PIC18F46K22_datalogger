@@ -25,11 +25,11 @@ void main() {
     OSCTUNE = 0b00000000; // bit7:  device clock derived from the MFINTOSC or HFINTOSC source
                                        // bit6: PLL disabled [0]
                                        // bit5-0: oscillator tuning [000000]
-  
+
   ANSELA = 0;      // configure all PORTA pins as analog for data logging
   ANSELC = 0;         // configure all PORTC pins as digital
   ANSELD = 0;         // configure all PORTD pins as digital
-  
+
   // initialize ADC module with voltage references: VSS - FVR(4.096V)
   // ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
   // initialize ADC module with voltage references: VSS - FVR(1.024V)
@@ -40,7 +40,7 @@ void main() {
 
 
     while(1){
-    
+
              ReadADC_and_Log();
              /*int R0;
              char R0_[6];
@@ -80,7 +80,7 @@ void ReadADC_and_Log(){
      Delay_ms(1000);
 
      // open the file
-     fileHandle = FAT32_Open("Log_.txt", FILE_APPEND);
+     fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
      // write some thing to the text file
      UART1_Write_Text(R0_);
      UART1_Write_Text("\t");
@@ -130,7 +130,7 @@ void logging_Init(){
       UART1_Write_Text("error creating folder");
 
     delay_ms(2000);     // wait 2 seconds
-    
+
     // create (or open if already exists) a text file 'Log.txt'
     UART1_Write_Text("\r\n\r\nCreate 'Log.txt' file ... ");
     fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
@@ -142,7 +142,8 @@ void logging_Init(){
     delay_ms(2000);     // wait 2 seconds
     // write some thing to the text file
     UART1_Write_Text("\r\nWriting to the text file 'Log.txt' ... ");
-    i = FAT32_Write(fileHandle, "Hello,\r\nThis is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\nHave a nice day ...", 113);
+    i = FAT32_Write(fileHandle, "This is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\n", 113);
+    //i = FAT32_Write(fileHandle, "Hello,\r\nThis is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\nHave a nice day ...", 113);
     if(i == 0)
       UART1_Write_Text("OK");
     else

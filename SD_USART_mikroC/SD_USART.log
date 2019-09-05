@@ -1,13 +1,11 @@
 0	1	mikroCPIC1618.exe -MSF -DBG -pP18F46K22 -DL -O11111114 -fo16 -N"\\Mac\Home\Documents\Code\microC\PIC18F46K22_datalogger\SD_USART_mikroC\SD_USART.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"\\Mac\Home\Documents\Code\microC\PIC18F46K22_datalogger\SD_USART_mikroC\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" "USART_test.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_ADC_K22_B.mcl" "__Lib_SPI_c345d014.mcl" "__Lib_UART_c67d67.mcl" "__Lib_Mmc.mcl" "__Lib_FAT32_Driver.mcl" "__Lib_FAT32_Defs.mcl" "__Lib_FAT32.mcl"	 
 hint: 0	1139	Available RAM: 3875 [bytes], Available ROM: 65536 [bytes]	 
-diagnostics: 0	122	Compilation Started	__Lib_Delays.c
-diagnostics: 172	123	Compiled Successfully	__Lib_Delays.c
 diagnostics: 0	122	Compilation Started	USART_test.c
-diagnostics: 195	123	Compiled Successfully	USART_test.c
+diagnostics: 196	123	Compiled Successfully	USART_test.c
 diagnostics: 0	127	All files Compiled in 125 ms	 
-hint: 0	1144	Used RAM (bytes): 2467 (64%)  Free RAM (bytes): 1408 (36%)	Used RAM (bytes): 2467 (64%)  Free RAM (bytes): 1408 (36%)
-hint: 0	1144	Used ROM (bytes): 34481 (53%)  Free ROM (bytes): 31055 (47%)	Used ROM (bytes): 34481 (53%)  Free ROM (bytes): 31055 (47%)
+hint: 0	1144	Used RAM (bytes): 2440 (63%)  Free RAM (bytes): 1435 (37%)	Used RAM (bytes): 2440 (63%)  Free RAM (bytes): 1435 (37%)
+hint: 0	1144	Used ROM (bytes): 34371 (52%)  Free ROM (bytes): 31165 (48%)	Used ROM (bytes): 34371 (52%)  Free ROM (bytes): 31165 (48%)
 diagnostics: 0	125	Project Linked Successfully	SD_USART.mcppi
-diagnostics: 0	128	Linked in 312 ms	 
-diagnostics: 0	129	Project 'SD_USART.mcppi' completed: 687 ms	 
-diagnostics: 0	103	Finished successfully: 19 Aug 2019, 17:22:16	SD_USART.mcppi
+diagnostics: 0	128	Linked in 172 ms	 
+diagnostics: 0	129	Project 'SD_USART.mcppi' completed: 328 ms	 
+diagnostics: 0	103	Finished successfully: 05 Sep 2019, 14:47:25	SD_USART.mcppi

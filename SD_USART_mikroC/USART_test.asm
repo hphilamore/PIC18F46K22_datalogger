@@ -98,7 +98,7 @@ L_ReadADC_and_Log3:
 	DECFSZ      R11, 1, 1
 	BRA         L_ReadADC_and_Log3
 	NOP
-;USART_test.c,83 :: 		fileHandle = FAT32_Open("Log_.txt", FILE_APPEND);
+;USART_test.c,83 :: 		fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
 	MOVLW       ?lstr1_USART_test+0
 	MOVWF       FARG_FAT32_Open_fn+0 
 	MOVLW       hi_addr(?lstr1_USART_test+0)
@@ -396,7 +396,7 @@ L_logging_Init14:
 	MOVLW       hi_addr(?lstr18_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,145 :: 		i = FAT32_Write(fileHandle, "Hello,\r\nThis is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\nHave a nice day ...", 113);
+;USART_test.c,145 :: 		i = FAT32_Write(fileHandle, "This is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\n", 113);
 	MOVF        _fileHandle+0, 0 
 	MOVWF       FARG_FAT32_Write_fHandle+0 
 	MOVLW       ?lstr19_USART_test+0
@@ -410,12 +410,12 @@ L_logging_Init14:
 	CALL        _FAT32_Write+0, 0
 	MOVF        R0, 0 
 	MOVWF       _i+0 
-;USART_test.c,146 :: 		if(i == 0)
+;USART_test.c,147 :: 		if(i == 0)
 	MOVF        R0, 0 
 	XORLW       0
 	BTFSS       STATUS+0, 2 
 	GOTO        L_logging_Init15
-;USART_test.c,147 :: 		UART1_Write_Text("OK");
+;USART_test.c,148 :: 		UART1_Write_Text("OK");
 	MOVLW       ?lstr20_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr20_USART_test+0)
@@ -423,14 +423,14 @@ L_logging_Init14:
 	CALL        _UART1_Write_Text+0, 0
 	GOTO        L_logging_Init16
 L_logging_Init15:
-;USART_test.c,149 :: 		UART1_Write_Text("writing error");
+;USART_test.c,150 :: 		UART1_Write_Text("writing error");
 	MOVLW       ?lstr21_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr21_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
 L_logging_Init16:
-;USART_test.c,151 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,152 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -444,24 +444,24 @@ L_logging_Init17:
 	BRA         L_logging_Init17
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init17
-;USART_test.c,153 :: 		UART1_Write_Text("\r\nClosing the file 'Log.txt' ... ");
+;USART_test.c,154 :: 		UART1_Write_Text("\r\nClosing the file 'Log.txt' ... ");
 	MOVLW       ?lstr22_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr22_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,154 :: 		i = FAT32_Close(fileHandle);
+;USART_test.c,155 :: 		i = FAT32_Close(fileHandle);
 	MOVF        _fileHandle+0, 0 
 	MOVWF       FARG_FAT32_Close_fHandle+0 
 	CALL        _FAT32_Close+0, 0
 	MOVF        R0, 0 
 	MOVWF       _i+0 
-;USART_test.c,155 :: 		if(i == 0)
+;USART_test.c,156 :: 		if(i == 0)
 	MOVF        R0, 0 
 	XORLW       0
 	BTFSS       STATUS+0, 2 
 	GOTO        L_logging_Init18
-;USART_test.c,156 :: 		UART1_Write_Text("OK");
+;USART_test.c,157 :: 		UART1_Write_Text("OK");
 	MOVLW       ?lstr23_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr23_USART_test+0)
@@ -469,14 +469,14 @@ L_logging_Init17:
 	CALL        _UART1_Write_Text+0, 0
 	GOTO        L_logging_Init19
 L_logging_Init18:
-;USART_test.c,158 :: 		UART1_Write_Text("closing error");
+;USART_test.c,159 :: 		UART1_Write_Text("closing error");
 	MOVLW       ?lstr24_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr24_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
 L_logging_Init19:
-;USART_test.c,160 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,161 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -490,13 +490,13 @@ L_logging_Init20:
 	BRA         L_logging_Init20
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init20
-;USART_test.c,162 :: 		UART1_Write_Text("\r\n\r\nReading 'Log.txt' file:");
+;USART_test.c,163 :: 		UART1_Write_Text("\r\n\r\nReading 'Log.txt' file:");
 	MOVLW       ?lstr25_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr25_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,163 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,164 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -510,13 +510,13 @@ L_logging_Init21:
 	BRA         L_logging_Init21
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init21
-;USART_test.c,166 :: 		UART1_Write_Text("\r\nOpen 'Log.txt' file ... ");
+;USART_test.c,167 :: 		UART1_Write_Text("\r\nOpen 'Log.txt' file ... ");
 	MOVLW       ?lstr26_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr26_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,167 :: 		fileHandle = FAT32_Open("Log.txt", FILE_READ);
+;USART_test.c,168 :: 		fileHandle = FAT32_Open("Log.txt", FILE_READ);
 	MOVLW       ?lstr27_USART_test+0
 	MOVWF       FARG_FAT32_Open_fn+0 
 	MOVLW       hi_addr(?lstr27_USART_test+0)
@@ -526,12 +526,12 @@ L_logging_Init21:
 	CALL        _FAT32_Open+0, 0
 	MOVF        R0, 0 
 	MOVWF       _fileHandle+0 
-;USART_test.c,168 :: 		if(fileHandle != 0)
+;USART_test.c,169 :: 		if(fileHandle != 0)
 	MOVF        R0, 0 
 	XORLW       0
 	BTFSC       STATUS+0, 2 
 	GOTO        L_logging_Init22
-;USART_test.c,169 :: 		UART1_Write_Text("error opening file");
+;USART_test.c,170 :: 		UART1_Write_Text("error opening file");
 	MOVLW       ?lstr28_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr28_USART_test+0)
@@ -539,13 +539,13 @@ L_logging_Init21:
 	CALL        _UART1_Write_Text+0, 0
 	GOTO        L_logging_Init23
 L_logging_Init22:
-;USART_test.c,172 :: 		UART1_Write_Text("OK");
+;USART_test.c,173 :: 		UART1_Write_Text("OK");
 	MOVLW       ?lstr29_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr29_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,173 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,174 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -559,13 +559,13 @@ L_logging_Init24:
 	BRA         L_logging_Init24
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init24
-;USART_test.c,175 :: 		UART1_Write_Text("\r\nPrint 'log.txt' file:\r\n\r");
+;USART_test.c,176 :: 		UART1_Write_Text("\r\nPrint 'log.txt' file:\r\n\r");
 	MOVLW       ?lstr30_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr30_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,176 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,177 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -579,7 +579,7 @@ L_logging_Init25:
 	BRA         L_logging_Init25
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init25
-;USART_test.c,178 :: 		FAT32_Read(fileHandle, buffer, 113);
+;USART_test.c,179 :: 		FAT32_Read(fileHandle, buffer, 113);
 	MOVF        _fileHandle+0, 0 
 	MOVWF       FARG_FAT32_Read_fHandle+0 
 	MOVLW       _buffer+0
@@ -591,13 +591,13 @@ L_logging_Init25:
 	MOVLW       0
 	MOVWF       FARG_FAT32_Read_len+1 
 	CALL        _FAT32_Read+0, 0
-;USART_test.c,180 :: 		UART1_Write_Text(buffer);
+;USART_test.c,181 :: 		UART1_Write_Text(buffer);
 	MOVLW       _buffer+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(_buffer+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,182 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,183 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -611,24 +611,24 @@ L_logging_Init26:
 	BRA         L_logging_Init26
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init26
-;USART_test.c,184 :: 		UART1_Write_Text("\r\n\r\nClosing the file 'log.txt' ... ");
+;USART_test.c,185 :: 		UART1_Write_Text("\r\n\r\nClosing the file 'log.txt' ... ");
 	MOVLW       ?lstr31_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr31_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,185 :: 		i = FAT32_Close(fileHandle);
+;USART_test.c,186 :: 		i = FAT32_Close(fileHandle);
 	MOVF        _fileHandle+0, 0 
 	MOVWF       FARG_FAT32_Close_fHandle+0 
 	CALL        _FAT32_Close+0, 0
 	MOVF        R0, 0 
 	MOVWF       _i+0 
-;USART_test.c,186 :: 		if(i == 0)
+;USART_test.c,187 :: 		if(i == 0)
 	MOVF        R0, 0 
 	XORLW       0
 	BTFSS       STATUS+0, 2 
 	GOTO        L_logging_Init27
-;USART_test.c,187 :: 		UART1_Write_Text("OK");
+;USART_test.c,188 :: 		UART1_Write_Text("OK");
 	MOVLW       ?lstr32_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr32_USART_test+0)
@@ -636,18 +636,18 @@ L_logging_Init26:
 	CALL        _UART1_Write_Text+0, 0
 	GOTO        L_logging_Init28
 L_logging_Init27:
-;USART_test.c,189 :: 		UART1_Write_Text("closing error");
+;USART_test.c,190 :: 		UART1_Write_Text("closing error");
 	MOVLW       ?lstr33_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr33_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
 L_logging_Init28:
-;USART_test.c,190 :: 		}
-L_logging_Init23:
 ;USART_test.c,191 :: 		}
+L_logging_Init23:
+;USART_test.c,192 :: 		}
 L_logging_Init7:
-;USART_test.c,193 :: 		delay_ms(2000);     // wait 2 seconds
+;USART_test.c,194 :: 		delay_ms(2000);     // wait 2 seconds
 	MOVLW       41
 	MOVWF       R11, 0
 	MOVLW       150
@@ -661,13 +661,13 @@ L_logging_Init29:
 	BRA         L_logging_Init29
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init29
-;USART_test.c,194 :: 		UART1_Write_Text("\r\n\r\n***** END *****\r\n\r\n");
+;USART_test.c,195 :: 		UART1_Write_Text("\r\n\r\n***** END *****\r\n\r\n");
 	MOVLW       ?lstr34_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
 	MOVLW       hi_addr(?lstr34_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,195 :: 		}
+;USART_test.c,196 :: 		}
 L_end_logging_Init:
 	RETURN      0
 ; end of _logging_Init

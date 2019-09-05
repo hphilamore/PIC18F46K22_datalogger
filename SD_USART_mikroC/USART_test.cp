@@ -486,22 +486,28 @@ void ReadADC_and_Log(){
  Delay_ms(1000);
 
 
+
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
 
+ UART1_Write_Text("\n");
  UART1_Write_Text(R0_);
  UART1_Write_Text("\t");
  UART1_Write_Text(R1_);
- UART1_Write_Text("\n");
+
+ i = FAT32_Write(fileHandle, "\r\n", 6);
  i = FAT32_Write(fileHandle, R0_, 6);
- i = FAT32_Write(fileHandle, "\t", 6);
+
  i = FAT32_Write(fileHandle, R1_, 6);
- i = FAT32_Write(fileHandle, "\n", 6);
- if(i != 0)
- UART1_Write_Text("writing error");
+
+
+
 
 
 
  i = FAT32_Close(fileHandle);
+
+
+ delay_ms(10000);
 }
 
 
@@ -518,7 +524,7 @@ void logging_Init(){
  i = FAT32_Init();
  if(i != 0)
  {
- UART1_Write_Text("Error initializing FAT library!");
+ UART1_Write_Text("Error initializing FAT library (SD card missing?)!");
  }
 
  else
@@ -527,59 +533,31 @@ void logging_Init(){
  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
  UART1_Write_Text("FAT Library initialized");
  delay_ms(2000);
-
-
- UART1_Write_Text("\r\n\r\nCreate 'Test Dir' folder ... ");
- if(FAT32_MakeDir("Test Dir") == 0)
- UART1_Write_Text("OK");
- else
- UART1_Write_Text("error creating folder");
-
- delay_ms(2000);
-
-
- UART1_Write_Text("\r\n\r\nCreate 'Log.txt' file ... ");
+#line 143 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ UART1_Write_Text("\r\n\r\nWrite test code to file :  This_is_a_text_file_created_using_PIC18F46K22_microcontroller");
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
- if(fileHandle == 0)
- UART1_Write_Text("OK");
- else
- UART1_Write_Text("error creating file or file already exists!");
-
+#line 155 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ i = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
+#line 163 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  delay_ms(2000);
 
- UART1_Write_Text("\r\nWriting to the text file 'Log.txt' ... ");
- i = FAT32_Write(fileHandle, "This is a text file created using PIC18F46K22 microcontroller and mikroC compiler.\r\n", 113);
 
- if(i == 0)
- UART1_Write_Text("OK");
- else
- UART1_Write_Text("writing error");
-
- delay_ms(2000);
-
- UART1_Write_Text("\r\nClosing the file 'Log.txt' ... ");
  i = FAT32_Close(fileHandle);
- if(i == 0)
- UART1_Write_Text("OK");
- else
- UART1_Write_Text("closing error");
-
- delay_ms(2000);
-
- UART1_Write_Text("\r\n\r\nReading 'Log.txt' file:");
+#line 176 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ UART1_Write_Text("\r\n\r\nReading first line of file:");
  delay_ms(2000);
 
 
- UART1_Write_Text("\r\nOpen 'Log.txt' file ... ");
+ UART1_Write_Text("\r\nOpen file ... ");
  fileHandle = FAT32_Open("Log.txt", FILE_READ);
  if(fileHandle != 0)
  UART1_Write_Text("error opening file");
  else
  {
- UART1_Write_Text("OK");
+
  delay_ms(2000);
 
- UART1_Write_Text("\r\nPrint 'log.txt' file:\r\n\r");
+ UART1_Write_Text("\r\nPrint file:\r\n\r");
  delay_ms(2000);
 
  FAT32_Read(fileHandle, buffer, 113);
@@ -588,15 +566,12 @@ void logging_Init(){
 
  delay_ms(2000);
 
- UART1_Write_Text("\r\n\r\nClosing the file 'log.txt' ... ");
+ UART1_Write_Text("\r\n\r\nClosing the file ... ");
  i = FAT32_Close(fileHandle);
- if(i == 0)
- UART1_Write_Text("OK");
- else
- UART1_Write_Text("closing error");
+#line 208 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
  }
 
  delay_ms(2000);
- UART1_Write_Text("\r\n\r\n***** END *****\r\n\r\n");
+ UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
 }

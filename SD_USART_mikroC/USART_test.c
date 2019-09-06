@@ -1,3 +1,13 @@
+/*
+
+https://simple-circuit.com/mikroc-dht22-data-logger-sd-
+https://simple-circuit.com/pic18f46k22-sd-card-fat32-mikroc/
+
+
+*/
+
+
+
 // SD card chip select pin connection
 sbit Mmc_Chip_Select           at RD4_bit;
 sbit Mmc_Chip_Select_Direction at TRISD4_bit;
@@ -101,7 +111,7 @@ void ReadADC_and_Log(){
      i = FAT32_Close(fileHandle);
      
      // wait 30s before next data point
-     delay_ms(10000);     // wait 30 seconds
+     delay_ms(5000);     // wait 5 seconds
 }
 
 
@@ -112,7 +122,7 @@ void logging_Init(){
   UART1_Init(9600);   // initialize UART1 module at 9600 baud
 
   UART1_Write_Text("\r\n\nInitialize FAT library ... ");
-  delay_ms(2000);     // wait 2 secods
+  delay_ms(1000);     // wait 2 secods
 
   // initialize FAT32 library (& SD card)
   i = FAT32_Init();
@@ -126,7 +136,7 @@ void logging_Init(){
     // re-initialize SPI1 module at highest speed
     SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
     UART1_Write_Text("FAT Library initialized");
-    delay_ms(2000);     // wait 2 seconds
+    delay_ms(1000);     // wait 2 seconds
 
     // create a new folder with name 'Test Dir'
     /*
@@ -160,7 +170,7 @@ void logging_Init(){
       UART1_Write_Text("writing error");
     */
 
-    delay_ms(2000);     // wait 2 seconds
+    delay_ms(1000);     // wait 2 seconds
     // now close the file (Log.txt)
     //UART1_Write_Text("\r\nClosing the file 'Log.txt' ... ");
     i = FAT32_Close(fileHandle);
@@ -174,7 +184,7 @@ void logging_Init(){
     //delay_ms(2000);     // wait 2 seconds
     // reading 'Log.txt' file
     UART1_Write_Text("\r\n\r\nReading first line of file:");
-    delay_ms(2000);     // wait 2 seconds
+    delay_ms(1000);     // wait 2 seconds
 
     // open 'Log.txt' file with read permission
     UART1_Write_Text("\r\nOpen file ... ");
@@ -184,16 +194,16 @@ void logging_Init(){
     else
     {  // open file OK
       //UART1_Write_Text("OK");
-      delay_ms(2000);     // wait 2 seconds
+      //delay_ms(1000);     // wait 2 seconds
       // print the whole file upto specified buffer length
       UART1_Write_Text("\r\nPrint file:\r\n\r");
-      delay_ms(2000);     // wait 2 seconds
+      delay_ms(1000);     // wait 2 seconds
       // read 113 bytes from fileHandler (Log.txt)and store in buffer
       FAT32_Read(fileHandle, buffer, 113);
       // now print the whole buffer
       UART1_Write_Text(buffer);
 
-      delay_ms(2000);     // wait 2 seconds
+      delay_ms(1000);     // wait 2 seconds
       // now close the file
       UART1_Write_Text("\r\n\r\nClosing the file ... ");
       i = FAT32_Close(fileHandle);
@@ -208,6 +218,6 @@ void logging_Init(){
     }
   }
 
-  delay_ms(2000);     // wait 2 seconds
+  delay_ms(1000);     // wait 2 seconds
   UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
 }

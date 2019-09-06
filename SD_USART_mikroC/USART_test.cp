@@ -507,7 +507,7 @@ void ReadADC_and_Log(){
  i = FAT32_Close(fileHandle);
 
 
- delay_ms(10000);
+ delay_ms(5000);
 }
 
 
@@ -518,7 +518,7 @@ void logging_Init(){
  UART1_Init(9600);
 
  UART1_Write_Text("\r\n\nInitialize FAT library ... ");
- delay_ms(2000);
+ delay_ms(1000);
 
 
  i = FAT32_Init();
@@ -532,20 +532,20 @@ void logging_Init(){
 
  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
  UART1_Write_Text("FAT Library initialized");
- delay_ms(2000);
+ delay_ms(1000);
 #line 143 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nWrite test code to file :  This_is_a_text_file_created_using_PIC18F46K22_microcontroller");
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
 #line 155 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  i = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
 #line 163 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
- delay_ms(2000);
+ delay_ms(1000);
 
 
  i = FAT32_Close(fileHandle);
 #line 176 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nReading first line of file:");
- delay_ms(2000);
+ delay_ms(1000);
 
 
  UART1_Write_Text("\r\nOpen file ... ");
@@ -555,16 +555,16 @@ void logging_Init(){
  else
  {
 
- delay_ms(2000);
+
 
  UART1_Write_Text("\r\nPrint file:\r\n\r");
- delay_ms(2000);
+ delay_ms(1000);
 
  FAT32_Read(fileHandle, buffer, 113);
 
  UART1_Write_Text(buffer);
 
- delay_ms(2000);
+ delay_ms(1000);
 
  UART1_Write_Text("\r\n\r\nClosing the file ... ");
  i = FAT32_Close(fileHandle);
@@ -572,6 +572,6 @@ void logging_Init(){
  }
  }
 
- delay_ms(2000);
+ delay_ms(1000);
  UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
 }

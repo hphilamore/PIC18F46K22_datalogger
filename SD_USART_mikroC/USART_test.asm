@@ -180,12 +180,12 @@ L_ReadADC_and_Log3:
 	CALL        _FAT32_Close+0, 0
 	MOVF        R0, 0 
 	MOVWF       _i+0 
-;USART_test.c,104 :: 		delay_ms(10000);     // wait 30 seconds
-	MOVLW       203
+;USART_test.c,104 :: 		delay_ms(5000);     // wait 5 seconds
+	MOVLW       102
 	MOVWF       R11, 0
-	MOVLW       236
+	MOVLW       118
 	MOVWF       R12, 0
-	MOVLW       132
+	MOVLW       193
 	MOVWF       R13, 0
 L_ReadADC_and_Log4:
 	DECFSZ      R13, 1, 1
@@ -194,7 +194,6 @@ L_ReadADC_and_Log4:
 	BRA         L_ReadADC_and_Log4
 	DECFSZ      R11, 1, 1
 	BRA         L_ReadADC_and_Log4
-	NOP
 ;USART_test.c,105 :: 		}
 L_end_ReadADC_and_Log:
 	RETURN      0
@@ -225,12 +224,12 @@ _logging_Init:
 	MOVLW       hi_addr(?lstr5_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,115 :: 		delay_ms(2000);     // wait 2 secods
-	MOVLW       41
+;USART_test.c,115 :: 		delay_ms(1000);     // wait 2 secods
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
 L_logging_Init5:
 	DECFSZ      R13, 1, 1
@@ -239,6 +238,7 @@ L_logging_Init5:
 	BRA         L_logging_Init5
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init5
+	NOP
 ;USART_test.c,118 :: 		i = FAT32_Init();
 	CALL        _FAT32_Init+0, 0
 	MOVF        R0, 0 
@@ -270,12 +270,12 @@ L_logging_Init6:
 	MOVLW       hi_addr(?lstr7_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,129 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
+;USART_test.c,129 :: 		delay_ms(1000);     // wait 2 seconds
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
 L_logging_Init8:
 	DECFSZ      R13, 1, 1
@@ -284,6 +284,7 @@ L_logging_Init8:
 	BRA         L_logging_Init8
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init8
+	NOP
 ;USART_test.c,143 :: 		UART1_Write_Text("\r\n\r\nWrite test code to file :  This_is_a_text_file_created_using_PIC18F46K22_microcontroller");
 	MOVLW       ?lstr8_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
@@ -314,12 +315,12 @@ L_logging_Init8:
 	CALL        _FAT32_Write+0, 0
 	MOVF        R0, 0 
 	MOVWF       _i+0 
-;USART_test.c,163 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
+;USART_test.c,163 :: 		delay_ms(1000);     // wait 2 seconds
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
 L_logging_Init9:
 	DECFSZ      R13, 1, 1
@@ -328,6 +329,7 @@ L_logging_Init9:
 	BRA         L_logging_Init9
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init9
+	NOP
 ;USART_test.c,166 :: 		i = FAT32_Close(fileHandle);
 	MOVF        _fileHandle+0, 0 
 	MOVWF       FARG_FAT32_Close_fHandle+0 
@@ -340,12 +342,12 @@ L_logging_Init9:
 	MOVLW       hi_addr(?lstr11_USART_test+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,177 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
+;USART_test.c,177 :: 		delay_ms(1000);     // wait 2 seconds
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
 L_logging_Init10:
 	DECFSZ      R13, 1, 1
@@ -354,6 +356,7 @@ L_logging_Init10:
 	BRA         L_logging_Init10
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init10
+	NOP
 ;USART_test.c,180 :: 		UART1_Write_Text("\r\nOpen file ... ");
 	MOVLW       ?lstr12_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
@@ -383,12 +386,18 @@ L_logging_Init10:
 	CALL        _UART1_Write_Text+0, 0
 	GOTO        L_logging_Init12
 L_logging_Init11:
-;USART_test.c,187 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
+;USART_test.c,189 :: 		UART1_Write_Text("\r\nPrint file:\r\n\r");
+	MOVLW       ?lstr15_USART_test+0
+	MOVWF       FARG_UART1_Write_Text_uart_text+0 
+	MOVLW       hi_addr(?lstr15_USART_test+0)
+	MOVWF       FARG_UART1_Write_Text_uart_text+1 
+	CALL        _UART1_Write_Text+0, 0
+;USART_test.c,190 :: 		delay_ms(1000);     // wait 2 seconds
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
 L_logging_Init13:
 	DECFSZ      R13, 1, 1
@@ -397,26 +406,7 @@ L_logging_Init13:
 	BRA         L_logging_Init13
 	DECFSZ      R11, 1, 1
 	BRA         L_logging_Init13
-;USART_test.c,189 :: 		UART1_Write_Text("\r\nPrint file:\r\n\r");
-	MOVLW       ?lstr15_USART_test+0
-	MOVWF       FARG_UART1_Write_Text_uart_text+0 
-	MOVLW       hi_addr(?lstr15_USART_test+0)
-	MOVWF       FARG_UART1_Write_Text_uart_text+1 
-	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,190 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
-	MOVWF       R11, 0
-	MOVLW       150
-	MOVWF       R12, 0
-	MOVLW       127
-	MOVWF       R13, 0
-L_logging_Init14:
-	DECFSZ      R13, 1, 1
-	BRA         L_logging_Init14
-	DECFSZ      R12, 1, 1
-	BRA         L_logging_Init14
-	DECFSZ      R11, 1, 1
-	BRA         L_logging_Init14
+	NOP
 ;USART_test.c,192 :: 		FAT32_Read(fileHandle, buffer, 113);
 	MOVF        _fileHandle+0, 0 
 	MOVWF       FARG_FAT32_Read_fHandle+0 
@@ -435,20 +425,21 @@ L_logging_Init14:
 	MOVLW       hi_addr(_buffer+0)
 	MOVWF       FARG_UART1_Write_Text_uart_text+1 
 	CALL        _UART1_Write_Text+0, 0
-;USART_test.c,196 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
+;USART_test.c,196 :: 		delay_ms(1000);     // wait 2 seconds
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
-L_logging_Init15:
+L_logging_Init14:
 	DECFSZ      R13, 1, 1
-	BRA         L_logging_Init15
+	BRA         L_logging_Init14
 	DECFSZ      R12, 1, 1
-	BRA         L_logging_Init15
+	BRA         L_logging_Init14
 	DECFSZ      R11, 1, 1
-	BRA         L_logging_Init15
+	BRA         L_logging_Init14
+	NOP
 ;USART_test.c,198 :: 		UART1_Write_Text("\r\n\r\nClosing the file ... ");
 	MOVLW       ?lstr16_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 
@@ -465,20 +456,21 @@ L_logging_Init15:
 L_logging_Init12:
 ;USART_test.c,209 :: 		}
 L_logging_Init7:
-;USART_test.c,211 :: 		delay_ms(2000);     // wait 2 seconds
-	MOVLW       41
+;USART_test.c,211 :: 		delay_ms(1000);     // wait 2 seconds
+	MOVLW       21
 	MOVWF       R11, 0
-	MOVLW       150
+	MOVLW       75
 	MOVWF       R12, 0
-	MOVLW       127
+	MOVLW       190
 	MOVWF       R13, 0
-L_logging_Init16:
+L_logging_Init15:
 	DECFSZ      R13, 1, 1
-	BRA         L_logging_Init16
+	BRA         L_logging_Init15
 	DECFSZ      R12, 1, 1
-	BRA         L_logging_Init16
+	BRA         L_logging_Init15
 	DECFSZ      R11, 1, 1
-	BRA         L_logging_Init16
+	BRA         L_logging_Init15
+	NOP
 ;USART_test.c,212 :: 		UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
 	MOVLW       ?lstr17_USART_test+0
 	MOVWF       FARG_UART1_Write_Text_uart_text+0 

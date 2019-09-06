@@ -1,8 +1,34 @@
 /*
 
-https://simple-circuit.com/mikroc-dht22-data-logger-sd-
-https://simple-circuit.com/pic18f46k22-sd-card-fat32-mikroc/
+Data logger using PIC18F46K22 microcontroller,  and DS3231 RTC.
 
+Configuration words     :     CONFIG1H : $300001 : 0x0028
+                              CONFIG2L : $300002 : 0x0019
+                              CONFIG2H : $300003 : 0x003C
+                              CONFIG3H : $300005 : 0x00BF
+                              CONFIG4L : $300006 : 0x0081
+                              CONFIG5L : $300008 : 0x000F
+                              CONFIG5H : $300009 : 0x00C0
+                              CONFIG6L : $30000A : 0x000F
+                              CONFIG6H : $30000B : 0x00E0
+
+
+Internal Oscillator used @ 16 MHz
+
+
+
+
+
+https://simple-circuit.com/pic18f46k22-sd-card-fat32-mikroc/
+https://simple-circuit.com/mikroc-dht22-data-logger-sd-card/
+https://simple-circuit.com/pic18f46k22-bme280-data-logger-mikroc/
+
+
+ADC to buffer
+https://www.studentcompanion.co.za/temperature-logger-to-sd-card-with-menu-control-mikroc/
+
+
+TODO : load ADC string conversion into buffer of correct length to see if UART overspill text problem is solved. Then you can addback in UART text if you want to
 
 */
 

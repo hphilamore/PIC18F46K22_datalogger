@@ -1,5 +1,5 @@
 #line 1 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
-
+#line 38 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
 sbit Mmc_Chip_Select at RD4_bit;
 sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/packages/fat32 library/uses/__lib_fat32.h"
@@ -431,14 +431,47 @@ uint8* FAT32_GetCurrentPath( void );
 
 __CLUSTER FAT32_SectToClust(__SECTOR sc);
 __SECTOR FAT32_ClustToSect(__CLUSTER cl);
-#line 9 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 49 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
 __HANDLE fileHandle;
+
+
 char buffer[114];
+
+
 short i;
+unsigned char rtc, yr;
+
+unsigned char MSB(unsigned char x)
+{
+ return ((x >> 4) + '0');
+}
+
+unsigned char LSB(unsigned char x)
+{
+ return ((x & 0x0F) + '0');
+}
+
+
+int second;
+int minute;
+int hour;
+int hr;
+int day;
+int dday;
+int month;
+int year;
+int ap;
+
+char time[] = "00:00:00 PM";
+char date[] = "00-00-00";
+
 
 
 void logging_Init();
 void ReadADC_and_Log();
+unsigned short read_RTC(unsigned short address);
+
+
 
 void main() {
 
@@ -464,11 +497,39 @@ void main() {
 
  logging_Init();
 
+ UART1_Write_Text("Initialising I2C \n");
 
+ I2C2_Init(100000);
+
+ UART1_Write_Text("I2C setup\n");
+ I2C2_Start();
+ I2C2_Wr(0xA0);
+ I2C2_Wr( 0 );
+ I2C2_Wr( 0x80 );
+ I2C2_Wr( 0 );
+#line 136 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ UART1_Write_Text("year\n");
+ year = 10 * (Date[6] - '0') + Date[7] - '0';
+
+ yr = (year % 4) << 2;
+
+
+ UART1_Write_Text("convert to BDC\n");
+
+
+ I2C2_Stop();
+
+ UART1_Write_Text("enable counting\n");
+ I2C2_Start();
+ I2C2_Wr(0xA0);
+ I2C2_Wr( 0 );
+ I2C2_Wr( 0 );
+ I2C2_Stop();
+#line 163 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  while(1){
 
  ReadADC_and_Log();
-#line 66 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 187 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
 }
 
@@ -478,6 +539,7 @@ void ReadADC_and_Log(){
  char R0_[6];
  char R1_[6];
 
+ UART1_Write_Text("ADC\n");
  R0 = ADC_Get_Sample(0);
  R1 = ADC_Get_Sample(1);
  WordToStr(R0, R0_);
@@ -485,6 +547,21 @@ void ReadADC_and_Log(){
 
  Delay_ms(1000);
 
+ UART1_Write_Text("RTC\n");
+ I2C2_Start();
+ I2C2_Wr(0xA0);
+ I2C2_Wr(0x2 );
+ I2C2_Start();
+ I2C2_Wr(0xA1);
+ UART1_Write_Text("read RTC\n");
+
+ rtc = read_RTC(0);
+ UART1_Write_Text("update time\n");
+ Time[6] = rtc>> + '0';
+ UART1_Write_Text("write time\n");
+ UART1_Write_Text(Time);
+#line 267 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ UART1_Write_Text("log to SD\n");
 
 
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
@@ -498,6 +575,7 @@ void ReadADC_and_Log(){
  i = FAT32_Write(fileHandle, R0_, 6);
 
  i = FAT32_Write(fileHandle, R1_, 6);
+
 
 
 
@@ -533,17 +611,17 @@ void logging_Init(){
  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
  UART1_Write_Text("FAT Library initialized");
  delay_ms(1000);
-#line 143 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 330 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nWrite test code to file :  This_is_a_text_file_created_using_PIC18F46K22_microcontroller");
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
-#line 155 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 342 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  i = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
-#line 163 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 350 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  delay_ms(1000);
 
 
  i = FAT32_Close(fileHandle);
-#line 176 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 363 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nReading first line of file:");
  delay_ms(1000);
 
@@ -568,10 +646,24 @@ void logging_Init(){
 
  UART1_Write_Text("\r\n\r\nClosing the file ... ");
  i = FAT32_Close(fileHandle);
-#line 208 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 395 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
  }
 
  delay_ms(1000);
  UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
+}
+
+
+unsigned short read_RTC(unsigned short address)
+{
+ unsigned short read_data;
+ I2C2_Start();
+ I2C2_Wr(0xA0);
+ I2C2_Wr(address);
+ I2C2_Repeated_Start();
+ I2C2_Wr(0xA1);
+ read_data=I2C2_Rd(0);
+ I2C2_Stop();
+ return(read_data);
 }

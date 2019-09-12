@@ -12,7 +12,7 @@
 ////                                                                   ////
 ///////////////////////////////////////////////////////////////////////////
 
-
+/*
 #ifdef DS3231_SOFT_I2C
 #define RTC_I2C_START    Soft_I2C_Start
 #define RTC_I2C_RESTART  Soft_I2C_Start
@@ -147,6 +147,11 @@ uint8_t RTC_Read_Reg(uint8_t reg_address);                     //
 void RTC_Write_Reg(uint8_t reg_address, uint8_t reg_value);    //
                                                                //
 /////////////////////////////////////////////////////////////////
+*/
+
+#include <stdint.h>
+#include "DS3231.h"
+
 
 // converts BCD to decimal
 uint8_t bcd_to_decimal(uint8_t number)

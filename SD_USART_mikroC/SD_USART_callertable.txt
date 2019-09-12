@@ -1387,41 +1387,11 @@ main
 						Mmc_Wait_Data_Ready
 							____DoIFC
 						____DoIFC
-	UART1_Write_Text
-		UART1_Write
-	I2C2_Init
-	I2C2_Start
-		I2C2_Is_Idle
-		____DoIFC
-	I2C2_Wr
-		____DoIFC
-	Mul_16X16_U
-	Div_16x16_S
-		Div_16x16_S_L
-	I2C2_Stop
 	ReadADC_and_Log
-		UART1_Write_Text
-			UART1_Write
 		ADC_Get_Sample
 			Delay_22us
 		WordToStr
 			Div_16X16_U
-		I2C2_Start
-			I2C2_Is_Idle
-			____DoIFC
-		I2C2_Wr
-			____DoIFC
-		read_RTC
-			I2C2_Start
-				I2C2_Is_Idle
-				____DoIFC
-			I2C2_Wr
-				____DoIFC
-			I2C2_Repeated_Start
-				____DoIFC
-			I2C2_Rd
-				____DoIFC
-			I2C2_Stop
 		FAT32_Open
 			FAT32_Exist
 				FAT32_FindNextEntry
@@ -2276,6 +2246,8 @@ main
 								Mmc_DeSelect
 									____DoIFC
 								____DoIFC
+		UART1_Write_Text
+			UART1_Write
 		FAT32_Write
 			Mul_16X16_U
 			FAT_getFreeClust

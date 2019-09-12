@@ -27,6 +27,7 @@ RTC
 https://libstock.mikroe.com/projects/view/1209/ds1307-real-time-clock-and-pic-microcontroller
 https://www.studentcompanion.co.za/interfacing-the-ds1307-real-time-clock-with-pic-microcontroller-mikroc/
 https://www.studentcompanion.co.za/interfacing-the-pcf8583-real-time-clock-with-pic-microcontroller-mikroc/
+https://simple-circuit.com/pic-mcu-ds1307-ds3231-i2c-lcd-mikroc/
 
 TODO : load ADC string conversion into buffer of correct length to see if UART overspill text problem is solved. Then you can addback in UART text if you want to
 

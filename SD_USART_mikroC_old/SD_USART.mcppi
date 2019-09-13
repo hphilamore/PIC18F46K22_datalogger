@@ -1,0 +1,73 @@
+[DEVICE]
+Name=P18F46K22
+Clock=16000000
+[MEMORY_MODEL]
+Value=0
+[BUILD_TYPE]
+Value=0
+[ACTIVE_TAB]
+Value=USART_test.c
+[USE_EEPROM]
+Value=0
+[USE_HEAP]
+Value=0
+[HEAP_SIZE]
+Value=0
+[EEPROM_DEFINITION]
+Value=
+[FILES]
+File0=USART_test.c
+Count=1
+[BINARIES]
+Count=0
+[IMAGES]
+Count=0
+ActiveImageIndex=-1
+[OPENED_FILES]
+File0=USART_test.c
+Count=1
+[EEPROM]
+Count=0
+[ACTIVE_COMMENTS_FILES]
+Count=0
+[OTHER_FILES]
+Count=0
+[SEARCH_PATH]
+Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\
+Count=1
+[HEADER_PATH]
+Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\
+Count=1
+[HEADERS]
+Count=0
+[PLDS]
+Count=0
+[Useses]
+File0=UART
+File1=FAT32
+File2=FAT32_Defs
+File3=FAT32_Driver
+File4=Mmc
+File5=SPI
+File6=ADC
+File7=Conversions
+File8=C_String
+Count=9
+[INTERRUPT_DEFS]
+VECTOR_MODE=0
+IVT_BASE=00000008
+[EXPANDED_NODES]
+0=SD_USART.mcppi
+Count=1
+[LIB_EXPANDED_NODES]
+0=mikroE Libraries
+1=System Libraries
+911=Additional Libraries
+912=FAT32 Library
+1989=Click_RTC_PIC
+Count=5
+[PROGRAMMER_TYPE]
+Value=mikroE mikroProg
+[CODEGRIP_OPTIONS]
+CODEGRIP_SPEED=0
+CODEGRIP_VERIFY_AFTER=0

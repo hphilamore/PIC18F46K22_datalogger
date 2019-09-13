@@ -1387,18 +1387,6 @@ main
 						Mmc_Wait_Data_Ready
 							____DoIFC
 						____DoIFC
-	RTC_Get
-		I2C2_Start
-			I2C2_Is_Idle
-			____DoIFC
-		I2C2_Wr
-			____DoIFC
-		I2C2_Repeated_Start
-			____DoIFC
-		I2C2_Rd
-			____DoIFC
-		I2C2_Stop
-		bcd_to_decimal
 	ReadADC_and_Log
 		ADC_Get_Sample
 			Delay_22us

@@ -115,21 +115,6 @@ adresl
 ahen
 ahen_bit
 ahen_ssp1con3_bit
-alarm_cfg
-alarm1_disable
-alarm1_enable
-alarm1_get
-alarm1_if_check
-alarm1_if_reset
-alarm1_set
-alarm1_status
-alarm2_disable
-alarm2_enable
-alarm2_get
-alarm2_if_check
-alarm2_if_reset
-alarm2_set
-alarm2_status
 an0
 an0_bit
 an1
@@ -262,7 +247,6 @@ baudcon
 baudcon1
 baudcon2
 baudctl
-bcd_to_decimal
 bcd2dec
 bcd2dec16
 bcl1ie
@@ -312,10 +296,7 @@ bytetohex
 bytetostr
 bytetostrwithzeros
 c
-c_alarm1
-c_alarm2
 c_bit
-c_time
 c12in0m
 c12in0m_bit
 c12in0n
@@ -678,9 +659,6 @@ dacr3
 dacr3_bit
 dacr4
 dacr4_bit
-day
-day
-day
 dc
 dc_bit
 dc1b0
@@ -705,7 +683,6 @@ dc5b1
 dc5b1_bit
 dec2bcd
 dec2bcd16
-decimal_to_bcd
 delay_100ms
 delay_10ms
 delay_10us
@@ -723,7 +700,6 @@ delay_cyc
 dhen
 dhen_bit
 dhen_ssp1con3_bit
-disable_32khz
 div_16x16_s
 div_16x16_s_l
 div_16x16_u
@@ -739,9 +715,6 @@ double2int
 double2longint
 double2longword
 double2word
-dow
-dow
-dow
 dt1
 dt1_bit
 dt2
@@ -814,7 +787,6 @@ eeip
 eeip_bit
 eepgd
 eepgd_bit
-enable_32khz
 equals_double
 f
 f32_br_template
@@ -911,7 +883,6 @@ gcen
 gcen_bit
 gcen_ssp1con2_bit
 get_fosc_khz
-get_temperature
 gie
 gie_bit
 gie_gieh
@@ -947,9 +918,6 @@ hlvdl2
 hlvdl2_bit
 hlvdl3
 hlvdl3_bit
-hours
-hours
-hours
 i
 i2c_is_idle
 i2c_is_idle_ptr
@@ -1039,7 +1007,6 @@ intedg1
 intedg1_bit
 intedg2
 intedg2_bit
-intsqw_set
 intsrc
 intsrc_bit
 inttohex
@@ -1230,9 +1197,6 @@ mfiofs
 mfiofs_bit
 mfiosel
 mfiosel_bit
-minutes
-minutes
-minutes
 mmc_chip_select
 mmc_chip_select_direction
 mmc_init
@@ -1243,9 +1207,6 @@ mmc_read_cid
 mmc_read_csd
 mmc_read_sector
 mmc_write_sector
-month
-month
-month
 msk0
 msk0_bit
 msk0_ssp1msk_bit
@@ -1281,7 +1242,6 @@ mul_32x32_s
 mul_32x32_u
 mul_8x8_s
 mult_mask
-mytime
 n
 n_bit
 not_a
@@ -1337,8 +1297,6 @@ oerr1
 oerr1_bit
 oerr2
 oerr2_bit
-osc_start
-osc_stop
 osccon
 osccon2
 oscfie
@@ -1758,10 +1716,6 @@ ri_bit
 rsen
 rsen_bit
 rsen_ssp1con2_bit
-rtc_get
-rtc_read_reg
-rtc_set
-rtc_write_reg
 rtrim
 rx_
 rx__bit
@@ -1835,9 +1789,6 @@ sdo1
 sdo1_bit
 sdo2
 sdo2_bit
-seconds
-seconds
-seconds
 sen
 sen_bit
 sen_ssp1con2_bit
@@ -2630,8 +2581,5 @@ wrerr_bit
 wue
 wue_baud1con_bit
 wue_bit
-year
-year
-year
 z
 z_bit

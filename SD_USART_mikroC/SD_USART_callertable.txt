@@ -1,6 +1,5 @@
 main
 	__CC2DW
-	I2C2_Init
 	ADC_Init_Advanced
 	logging_Init
 		SPI1_Init_Advanced
@@ -1388,23 +1387,6 @@ main
 						Mmc_Wait_Data_Ready
 							____DoIFC
 						____DoIFC
-	debounce
-	decimal_to_bcd
-		Div_8X8_U
-	I2C2_Start
-		I2C2_Is_Idle
-		____DoIFC
-	I2C2_Wr
-		____DoIFC
-	I2C2_Stop
-	I2C2_Repeated_Start
-		____DoIFC
-	tI2C2_Rd
-	I2C_Stop
-		____DoIFC
-	bcd_to_decimal
-	UART1_Write_Text
-		UART1_Write
 	ReadADC_and_Log
 		ADC_Get_Sample
 			Delay_22us

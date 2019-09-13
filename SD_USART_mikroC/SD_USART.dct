@@ -247,7 +247,6 @@ baudcon
 baudcon1
 baudcon2
 baudctl
-bcd_to_decimal
 bcd2dec
 bcd2dec16
 bcl1ie
@@ -682,11 +681,8 @@ dc5b0
 dc5b0_bit
 dc5b1
 dc5b1_bit
-debounce
 dec2bcd
 dec2bcd16
-decimal_to_bcd
-delay
 delay_100ms
 delay_10ms
 delay_10us
@@ -758,7 +754,6 @@ edgen
 edgen_bit
 edgseqen
 edgseqen_bit
-edit
 eeadr
 eeadr0
 eeadr0_bit
@@ -1726,7 +1721,6 @@ ri_bit
 rsen
 rsen_bit
 rsen_ssp1con2_bit
-rtc_display
 rtrim
 rx_
 rx__bit
@@ -2237,7 +2231,6 @@ tblptrl
 tblptru
 tgen
 tgen_bit
-ti2c2_rd
 tmr0h
 tmr0ie
 tmr0ie_bit

@@ -39,7 +39,7 @@ https://simple-circuit.com/pic-mcu-ds1307-ds3231-i2c-lcd-mikroc/
 // SD card chip select pin connection
 sbit Mmc_Chip_Select           at RD4_bit;
 sbit Mmc_Chip_Select_Direction at TRISD4_bit;
-//unsigned short tI2C2_Rd(unsigned short ack);
+unsigned short tI2C2_Rd(unsigned short ack);
 
 // include __Lib_FAT32.h file (useful definitions)
 #include "stdint.h"
@@ -48,7 +48,7 @@ sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 // button definitions
 #define button1      RA5_bit   // button B1 is connected to RA5 pin
 #define button2      RA4_bit   // button B2 is connected to RA4 pin
-
+#define I2C_READ_TIMEOUT_US 200
 
 // variable declarations
 __HANDLE fileHandle;   // only one file can be opened
@@ -58,11 +58,28 @@ short j;
 // variables declaration
 char  i, second, minute, hour, m_day, month, year;
 
+// a small function for button1 (B1) debounce
+char debounce ()
+{
+  char i, count = 0;
+  for(i = 0; i < 5; i++)
+  {
+    if (button1 == 0)
+      count++;
+    delay_ms(10);
+  }
+  if(count > 2)  return 1;
+  else           return 0;
+}
 
 // prototypes
 void logging_Init();
 void ReadADC_and_Log();
-
+uint8_t bcd_to_decimal(uint8_t number);
+uint8_t decimal_to_bcd(uint8_t number);
+void RTC_display();
+void delay();
+char edit(char x, char y, char parameter);
 
 void main() {
 
@@ -86,6 +103,11 @@ void main() {
     ANSELC = 0;      // configure all PORTC pins as analog
     ANSELD = 0;      // configure all PORTD pins as analog
     
+    // enable RA4 and RA5 internal pull ups for push-buttons
+    //NOT_WPUEN_bit = 0;      // clear WPUEN bit (OPTION_REG.7)
+    //WPUA          = 0x30;   // WPUA register = 0b00110000
+    
+    I2C2_Init(100000);   // initialize I2C bus with clock frequency of 100kHz
 
     // initialize ADC module with voltage references: VSS - FVR(4.096V)
     // ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);
@@ -95,9 +117,57 @@ void main() {
 
     logging_Init();
     
+    i = 0;
+    hour   = 1; //edit(7,  1, hour);
+    minute = 2; //edit(10, 1, minute);
+    m_day  = 3; //edit(7,  2, m_day);
+    month  = 4; //edit(10, 2, month);
+    year   = 5; //edit(15, 2, year);
 
+    while(debounce());  // call debounce function (wait for button B1 to be released)
 
+    // convert decimal to BCD
+    minute = decimal_to_bcd(minute);
+    hour   = decimal_to_bcd(hour);
+    m_day  = decimal_to_bcd(m_day);
+    month  = decimal_to_bcd(month);
+    year   = decimal_to_bcd(year);
+    // end conversion
 
+    // write data to RTC chip
+    I2C2_Start();      // start I2C
+    I2C2_Wr(0xD0);     // RTC chip address
+    I2C2_Wr(0);        // send register address
+    I2C2_Wr(0);        // reset seconds and start oscillator
+    I2C2_Wr(minute);   // write minute value to RTC chip
+    I2C2_Wr(hour);     // write hour value to RTC chip
+    I2C2_Wr(1);        // write day value (not used)
+    I2C2_Wr(m_day);    // write date value to RTC chip
+    I2C2_Wr(month);    // write month value to RTC chip
+    I2C2_Wr(year);     // write year value to RTC chip
+    I2C2_Stop();       // stop I2C
+    
+    // read current time and date from the RTC chip
+    I2C2_Start();           // start I2C
+    I2C2_Wr(0xD0);       // RTC chip address
+    I2C2_Wr(0);          // send register address
+    //I2C2_Restart();         // restart I2C
+    I2C2_Repeated_Start();    // restart I2C
+    I2C2_Wr(0xD1);       // initialize data read
+    // second = I2C2_Rd(1);  // read seconds from register 0
+    second = tI2C2_Rd(1);  // read seconds from register 0
+    /*
+    minute = I2C2_Rd(1);  // read minutes from register 1
+    hour   = I2C2_Rd(1);  // read hour from register 2
+    I2C_Read(1);           // read day from register 3 (not used)
+    m_day  = I2C2_Rd(1);  // read date from register 4
+    month  = I2C2_Rd(1);  // read month from register 5
+    year   = I2C2_Rd(0);  // read year from register 6
+    */
+    I2C_Stop();
+    
+    second = bcd_to_decimal(second);
+    UART1_Write_Text(second);
 
 
     while(1){
@@ -271,5 +341,201 @@ void logging_Init(){
 
   delay_ms(1000);     // wait 2 seconds
   UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
+}
+
+
+     
+//********************* RTC functions *********************
+// convert BCD to decimal function 
+
+uint8_t bcd_to_decimal(uint8_t number)
+{
+  return((number >> 4) * 10 + (number & 0x0F));
+}
+
+
+// convert decimal to BCD function
+uint8_t decimal_to_bcd(uint8_t number)
+{
+  return(((number / 10) << 4) + (number % 10));
+}
+
+// display time and date function
+void RTC_display()
+{
+  // convert data from BCD format to decimal format
+  second = bcd_to_decimal(second);
+  minute = bcd_to_decimal(minute);
+  hour   = bcd_to_decimal(hour);
+  m_day  = bcd_to_decimal(m_day);
+  month  = bcd_to_decimal(month);
+  year   = bcd_to_decimal(year);
+  // end conversion
+
+  /*
+  // print seconds
+  LCD_Goto(13, 1);
+  LCD_PutC( (second / 10) % 10 + '0');
+  LCD_PutC(  second       % 10 + '0');
+  // print minutes
+  LCD_Goto(10, 1);
+  LCD_PutC( (minute / 10) % 10 + '0');
+  LCD_PutC(  minute       % 10 + '0');
+  // print hours
+  LCD_Goto(7, 1);
+  LCD_PutC( (hour / 10) % 10 + '0');
+  LCD_PutC(  hour       % 10 + '0');
+  // print day of the month
+  LCD_Goto(7, 2);
+  LCD_PutC( (m_day / 10) % 10 + '0');
+  LCD_PutC(  m_day       % 10 + '0');
+  // print month
+  LCD_Goto(10, 2);
+  LCD_PutC( (month / 10) % 10 + '0');
+  LCD_PutC(  month       % 10 + '0');
+  // print year
+  LCD_Goto(15, 2);
+  LCD_PutC( (year / 10) % 10 + '0');
+  LCD_PutC(  year       % 10 + '0');
+  */
+
+}
+
+
+
+// make editing parameter blinks function
+void delay()
+{
+  TMR1H = TMR1L = 0;   // reset Timer1
+  TMR1ON_bit    = 1;   // enable Timer1 module
+  // wait for 250ms or at least one button press
+  while ( ((unsigned)(TMR1H << 8) | TMR1L) < 62500 && button1 && button2) ;
+  TMR1ON_bit = 0;         // disable Timer1 module
+}
+
+
+
+// edit time and date function
+char edit(char x, char y, char parameter)
+{
+  while(debounce());  // call debounce function (wait for B1 to be released)
+
+  while(1) {
+
+    while(!button2)    // if button B2 is pressed
+    {
+      parameter++;
+      if(i == 0 && parameter > 23)   // if hours > 23 ==> hours = 0
+        parameter = 0;
+      if(i == 1 && parameter > 59)   // if minutes > 59 ==> minutes = 0
+        parameter = 0;
+      if(i == 2 && parameter > 31)   // if date > 31 ==> date = 1
+        parameter = 1;
+      if(i == 3 && parameter > 12)   // if month > 12 ==> month = 1
+        parameter = 1;
+      if(i == 4 && parameter > 99)   // if year > 99 ==> year = 0
+        parameter = 0;
+
+      /*
+      LCD_Goto(x, y);    // move cursor to column x, row y
+      LCD_PutC(parameter / 10 + '0');
+      LCD_PutC(parameter % 10 + '0');
+      delay_ms(200);
+      */
+
+    }
+
+    /*
+    LCD_Goto(x, y);   // move cursor to column x, row y
+    LCD_Print("  ");  // print 2 spaces
+    delay();
+
+    LCD_Goto(x, y);
+    LCD_PutC(parameter / 10 + '0');
+    LCD_PutC(parameter % 10 + '0');
+    delay();
+    */
+
+    if(!button1)     // if button B1 is pressed
+    if(debounce())   // call debounce function (make sure B1 is pressed)
+    {
+      i++;   // increment 'i' for the next parameter
+      return parameter;     // return parameter value and exit
+    }
+
+  }
+
+}
+
+
+
+
+unsigned short tI2C2_Rd(unsigned short ack) {
+
+    unsigned short d = 0;
+    const unsigned int delay = 2; // us
+    unsigned int max_retry = I2C_READ_TIMEOUT_US / delay;
+    unsigned int retry;
+
+    if (max_retry == 0)
+        max_retry = 1;
+
+    // Interrupt Flag bit - Waiting to transmit/receive
+    // 1 = The transmission/reception is complete (must be cleared by software)
+    // 0 = Waiting to transmit/receive
+    //
+    PIR1.SSP1IF = 0;
+
+    // Set receive mode
+    // 1 = Enables Receive mode for I2C
+    // 0 = Receive idle
+    //
+    SSP1CON2.RCEN = 1;
+
+    // Wait for read completion
+    // 1 = The transmission/reception is complete (must be cleared by software)
+    // 0 = Waiting to transmit/receive
+    //
+    retry = max_retry;
+    while (PIR1.SSP1IF == 0 && --retry > 0)
+        delay_us(delay);
+
+    // Still not complete, get out...
+    if (PIR1.SSP1IF == 0)
+        return 0;
+
+    // grab the data
+    d = (unsigned short)SSPBUF;
+
+    // ACK required?
+    if (ack == 0) {
+        // No
+        // 1 = Not Acknowledge
+        // 0 = Acknowledge
+        //
+        SSP1CON2.ACKDT = 1;
+    } else {
+        // Yes
+        SSP1CON2.ACKDT = 0;
+    }
+
+    // Interrupt Flag bit - Waiting to transmit/receive
+    // 1 = The transmission/reception is complete (must be cleared by software)
+    // 0 = Waiting to transmit/receive
+    //
+    PIR1.SSP1IF = 0;
+
+    // Start Ack sequence
+    // 1 = Initiate Acknowledge sequence on SDAx and SCLx pins, and transmit ACKDT data bit. Automatically cleared by hardware.
+    // 0 = Acknowledge sequence idle
+    //
+    SSP1CON2.ACKEN = 1;
+
+    // Wait for completion of ack sequence
+    retry = max_retry;
+    while (PIR1.SSP1IF == 0 && --retry > 0)
+        delay_us(delay);
+
+    return d;
 }
 

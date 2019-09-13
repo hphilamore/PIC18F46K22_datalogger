@@ -41,8 +41,6 @@ sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 #define DS3231_I2C2    // use hardware I2C2 moodule (MSSP2) for DS3231 RTC
 //#include "DS3231.c"    // include DS3231 RTC driver source file
 
-
-
 // include __Lib_FAT32.h file (useful definitions)
 #include "__Lib_FAT32.h"
 
@@ -50,9 +48,6 @@ sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 __HANDLE fileHandle;   // only one file can be opened
 char buffer[114];
 short i;
-
-
-
 
 #ifdef DS3231_SOFT_I2C
 #define RTC_I2C_START    Soft_I2C_Start
@@ -532,6 +527,8 @@ RTC_Time *mytime;      // DS3231 library variable
 void logging_Init();
 void ReadADC_and_Log();
 
+
+
 void main() {
 
     OSCCON = 0b01110000;  // bit7: device enters SLEEP on sleep instruction[0]
@@ -558,7 +555,7 @@ void main() {
 
 
     while(1){
-
+             mytime = RTC_Get();
              ReadADC_and_Log();
              /*int R0;
              char R0_[6];

@@ -2,6 +2,49 @@
 #line 39 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
 sbit Mmc_Chip_Select at RD4_bit;
 sbit Mmc_Chip_Select_Direction at TRISD4_bit;
+unsigned short tI2C2_Rd(unsigned short ack);
+#line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/include/stdint.h"
+
+
+
+
+typedef signed char int8_t;
+typedef signed int int16_t;
+typedef signed long int int32_t;
+
+
+typedef unsigned char uint8_t;
+typedef unsigned int uint16_t;
+typedef unsigned long int uint32_t;
+
+
+typedef signed char int_least8_t;
+typedef signed int int_least16_t;
+typedef signed long int int_least32_t;
+
+
+typedef unsigned char uint_least8_t;
+typedef unsigned int uint_least16_t;
+typedef unsigned long int uint_least32_t;
+
+
+
+typedef signed char int_fast8_t;
+typedef signed int int_fast16_t;
+typedef signed long int int_fast32_t;
+
+
+typedef unsigned char uint_fast8_t;
+typedef unsigned int uint_fast16_t;
+typedef unsigned long int uint_fast32_t;
+
+
+typedef signed int intptr_t;
+typedef unsigned int uintptr_t;
+
+
+typedef signed long int intmax_t;
+typedef unsigned long int uintmax_t;
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/packages/fat32 library/uses/__lib_fat32.h"
 #line 29 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/packages/fat32 library/uses/__lib_fat32.h"
 typedef unsigned short uint8;
@@ -431,7 +474,7 @@ uint8* FAT32_GetCurrentPath( void );
 
 __CLUSTER FAT32_SectToClust(__SECTOR sc);
 __SECTOR FAT32_ClustToSect(__CLUSTER cl);
-#line 50 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 53 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
 __HANDLE fileHandle;
 char buffer[114];
 short j;
@@ -456,6 +499,11 @@ char debounce ()
 
 void logging_Init();
 void ReadADC_and_Log();
+uint8_t bcd_to_decimal(uint8_t number);
+uint8_t decimal_to_bcd(uint8_t number);
+void RTC_display();
+void delay();
+char edit(char x, char y, char parameter);
 
 void main() {
 
@@ -469,9 +517,21 @@ void main() {
 
 
 
+
+
+
+
+
  ANSELA = 0;
+
  ANSELC = 0;
  ANSELD = 0;
+
+
+
+
+
+ I2C2_Init(100000);
 
 
 
@@ -481,11 +541,56 @@ void main() {
 
  logging_Init();
 
+ i = 0;
+ hour = 1;
+ minute = 2;
+ m_day = 3;
+ month = 4;
+ year = 5;
+
+ while(debounce());
+
+
+ minute = decimal_to_bcd(minute);
+ hour = decimal_to_bcd(hour);
+ m_day = decimal_to_bcd(m_day);
+ month = decimal_to_bcd(month);
+ year = decimal_to_bcd(year);
+
+
+
+ I2C2_Start();
+ I2C2_Wr(0xD0);
+ I2C2_Wr(0);
+ I2C2_Wr(0);
+ I2C2_Wr(minute);
+ I2C2_Wr(hour);
+ I2C2_Wr(1);
+ I2C2_Wr(m_day);
+ I2C2_Wr(month);
+ I2C2_Wr(year);
+ I2C2_Stop();
+
+
+ I2C2_Start();
+ I2C2_Wr(0xD0);
+ I2C2_Wr(0);
+
+ I2C2_Repeated_Start();
+ I2C2_Wr(0xD1);
+
+ second = tI2C2_Rd(1);
+#line 166 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ I2C_Stop();
+
+ second = bcd_to_decimal(second);
+ UART1_Write_Text(second);
+
 
  while(1){
 
  ReadADC_and_Log();
-#line 124 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 196 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
 }
 
@@ -550,17 +655,17 @@ void logging_Init(){
  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
  UART1_Write_Text("FAT Library initialized");
  delay_ms(1000);
-#line 201 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 273 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nWrite test code to file :  This_is_a_text_file_created_using_PIC18F46K22_microcontroller");
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
-#line 213 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 285 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  j = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
-#line 221 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 293 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  delay_ms(1000);
 
 
  j = FAT32_Close(fileHandle);
-#line 234 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 306 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nReading first line of file:");
  delay_ms(1000);
 
@@ -585,10 +690,160 @@ void logging_Init(){
 
  UART1_Write_Text("\r\n\r\nClosing the file ... ");
  j = FAT32_Close(fileHandle);
-#line 266 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 338 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
  }
 
  delay_ms(1000);
  UART1_Write_Text("\r\n\r\n***** END OF INITIALISATION *****\r\n\r\n");
+}
+
+
+
+
+
+
+uint8_t bcd_to_decimal(uint8_t number)
+{
+ return((number >> 4) * 10 + (number & 0x0F));
+}
+
+
+
+uint8_t decimal_to_bcd(uint8_t number)
+{
+ return(((number / 10) << 4) + (number % 10));
+}
+
+
+void RTC_display()
+{
+
+ second = bcd_to_decimal(second);
+ minute = bcd_to_decimal(minute);
+ hour = bcd_to_decimal(hour);
+ m_day = bcd_to_decimal(m_day);
+ month = bcd_to_decimal(month);
+ year = bcd_to_decimal(year);
+#line 401 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+}
+
+
+
+
+void delay()
+{
+ TMR1H = TMR1L = 0;
+ TMR1ON_bit = 1;
+
+ while ( ((unsigned)(TMR1H << 8) | TMR1L) < 62500 &&  RA5_bit  &&  RA4_bit ) ;
+ TMR1ON_bit = 0;
+}
+
+
+
+
+char edit(char x, char y, char parameter)
+{
+ while(debounce());
+
+ while(1) {
+
+ while(! RA4_bit )
+ {
+ parameter++;
+ if(i == 0 && parameter > 23)
+ parameter = 0;
+ if(i == 1 && parameter > 59)
+ parameter = 0;
+ if(i == 2 && parameter > 31)
+ parameter = 1;
+ if(i == 3 && parameter > 12)
+ parameter = 1;
+ if(i == 4 && parameter > 99)
+ parameter = 0;
+#line 445 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ }
+#line 458 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ if(! RA5_bit )
+ if(debounce())
+ {
+ i++;
+ return parameter;
+ }
+
+ }
+
+}
+
+
+
+
+unsigned short tI2C2_Rd(unsigned short ack) {
+
+ unsigned short d = 0;
+ const unsigned int delay = 2;
+ unsigned int max_retry =  200  / delay;
+ unsigned int retry;
+
+ if (max_retry == 0)
+ max_retry = 1;
+
+
+
+
+
+ PIR1.SSP1IF = 0;
+
+
+
+
+
+ SSP1CON2.RCEN = 1;
+
+
+
+
+
+ retry = max_retry;
+ while (PIR1.SSP1IF == 0 && --retry > 0)
+ delay_us(delay);
+
+
+ if (PIR1.SSP1IF == 0)
+ return 0;
+
+
+ d = (unsigned short)SSPBUF;
+
+
+ if (ack == 0) {
+
+
+
+
+ SSP1CON2.ACKDT = 1;
+ } else {
+
+ SSP1CON2.ACKDT = 0;
+ }
+
+
+
+
+
+ PIR1.SSP1IF = 0;
+
+
+
+
+
+ SSP1CON2.ACKEN = 1;
+
+
+ retry = max_retry;
+ while (PIR1.SSP1IF == 0 && --retry > 0)
+ delay_us(delay);
+
+ return d;
 }

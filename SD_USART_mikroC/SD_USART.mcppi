@@ -17,8 +17,7 @@ Value=0
 Value=
 [FILES]
 File0=USART_test.c
-File1=DS3231.c
-Count=2
+Count=1
 [BINARIES]
 Count=0
 [IMAGES]
@@ -65,9 +64,9 @@ Count=2
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
 1=System Libraries
-243=I2C
 911=Additional Libraries
 912=FAT32 Library
+1989=Click_RTC_PIC
 Count=5
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg

@@ -1,5 +1,5 @@
 #line 1 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
-
+#line 39 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
 sbit Mmc_Chip_Select at RD4_bit;
 sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 #line 1 "c:/users/public/documents/mikroelektronika/mikroc pro for pic/packages/fat32 library/uses/__lib_fat32.h"
@@ -431,10 +431,27 @@ uint8* FAT32_GetCurrentPath( void );
 
 __CLUSTER FAT32_SectToClust(__SECTOR sc);
 __SECTOR FAT32_ClustToSect(__CLUSTER cl);
-#line 9 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 50 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
 __HANDLE fileHandle;
 char buffer[114];
-short i;
+short j;
+
+
+char i, second, minute, hour, m_day, month, year;
+
+
+char debounce ()
+{
+ char i, count = 0;
+ for(i = 0; i < 5; i++)
+ {
+ if ( RA5_bit  == 0)
+ count++;
+ delay_ms(10);
+ }
+ if(count > 2) return 1;
+ else return 0;
+}
 
 
 void logging_Init();
@@ -468,7 +485,7 @@ void main() {
  while(1){
 
  ReadADC_and_Log();
-#line 66 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 124 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
 }
 
@@ -494,17 +511,17 @@ void ReadADC_and_Log(){
  UART1_Write_Text("\t");
  UART1_Write_Text(R1_);
 
- i = FAT32_Write(fileHandle, "\r\n", 6);
- i = FAT32_Write(fileHandle, R0_, 6);
+ j = FAT32_Write(fileHandle, "\r\n", 6);
+ j = FAT32_Write(fileHandle, R0_, 6);
 
- i = FAT32_Write(fileHandle, R1_, 6);
-
-
+ j = FAT32_Write(fileHandle, R1_, 6);
 
 
 
 
- i = FAT32_Close(fileHandle);
+
+
+ j = FAT32_Close(fileHandle);
 
 
  delay_ms(5000);
@@ -521,8 +538,8 @@ void logging_Init(){
  delay_ms(1000);
 
 
- i = FAT32_Init();
- if(i != 0)
+ j = FAT32_Init();
+ if(j != 0)
  {
  UART1_Write_Text("Error initializing FAT library (SD card missing?)!");
  }
@@ -533,17 +550,17 @@ void logging_Init(){
  SPI1_Init_Advanced(_SPI_MASTER_OSC_DIV4, _SPI_DATA_SAMPLE_MIDDLE, _SPI_CLK_IDLE_LOW, _SPI_LOW_2_HIGH);
  UART1_Write_Text("FAT Library initialized");
  delay_ms(1000);
-#line 143 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 201 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nWrite test code to file :  This_is_a_text_file_created_using_PIC18F46K22_microcontroller");
  fileHandle = FAT32_Open("Log.txt", FILE_APPEND);
-#line 155 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
- i = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
-#line 163 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+#line 213 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ j = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
+#line 221 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  delay_ms(1000);
 
 
- i = FAT32_Close(fileHandle);
-#line 176 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ j = FAT32_Close(fileHandle);
+#line 234 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  UART1_Write_Text("\r\n\r\nReading first line of file:");
  delay_ms(1000);
 
@@ -567,8 +584,8 @@ void logging_Init(){
  delay_ms(1000);
 
  UART1_Write_Text("\r\n\r\nClosing the file ... ");
- i = FAT32_Close(fileHandle);
-#line 208 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
+ j = FAT32_Close(fileHandle);
+#line 266 "//Mac/Home/Documents/Code/microC/PIC18F46K22_datalogger/SD_USART_mikroC/USART_test.c"
  }
  }
 

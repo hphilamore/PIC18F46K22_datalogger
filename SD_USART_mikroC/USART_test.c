@@ -15,24 +15,19 @@ Configuration words     :     CONFIG1H : $300001 : 0x0028
 
 Internal Oscillator used @ 16 MHz
 
-
-
-
-
+Example projects
 https://simple-circuit.com/pic18f46k22-sd-card-fat32-mikroc/
 https://simple-circuit.com/mikroc-dht22-data-logger-sd-card/
 https://simple-circuit.com/pic18f46k22-bme280-data-logger-mikroc/
 
-
 ADC to buffer
 https://www.studentcompanion.co.za/temperature-logger-to-sd-card-with-menu-control-mikroc/
-
 
 RTC
 https://libstock.mikroe.com/projects/view/1209/ds1307-real-time-clock-and-pic-microcontroller
 https://www.studentcompanion.co.za/interfacing-the-ds1307-real-time-clock-with-pic-microcontroller-mikroc/
 https://www.studentcompanion.co.za/interfacing-the-pcf8583-real-time-clock-with-pic-microcontroller-mikroc/
-
+https://simple-circuit.com/pic-mcu-ds1307-ds3231-i2c-lcd-mikroc/
 
 TODO : load ADC string conversion into buffer of correct length to see if UART overspill text problem is solved. Then you can addback in UART text if you want to
 
@@ -47,10 +42,31 @@ sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 // include __Lib_FAT32.h file (useful definitions)
 #include "__Lib_FAT32.h"
 
+// button definitions
+#define button1      RA5_bit   // button B1 is connected to RA5 pin
+#define button2      RA4_bit   // button B2 is connected to RA4 pin
+
 // variable declarations
 __HANDLE fileHandle;   // only one file can be opened
 char buffer[114];
-short i;
+short j;
+
+// variables declaration
+char  i, second, minute, hour, m_day, month, year;
+
+// a small function for button1 (B1) debounce
+char debounce ()
+{
+  char i, count = 0;
+  for(i = 0; i < 5; i++)
+  {
+    if (button1 == 0)
+      count++;
+    delay_ms(10);
+  }
+  if(count > 2)  return 1;
+  else           return 0;
+}
 
 // prototypes
 void logging_Init();
@@ -130,17 +146,17 @@ void ReadADC_and_Log(){
      UART1_Write_Text("\t");
      UART1_Write_Text(R1_);
 
-     i = FAT32_Write(fileHandle, "\r\n", 6);
-     i = FAT32_Write(fileHandle, R0_, 6);
-     //i = FAT32_Write(fileHandle, "\t", 6);
-     i = FAT32_Write(fileHandle, R1_, 6);
+     j = FAT32_Write(fileHandle, "\r\n", 6);
+     j = FAT32_Write(fileHandle, R0_, 6);
+     //j = FAT32_Write(fileHandle, "\t", 6);
+     j = FAT32_Write(fileHandle, R1_, 6);
 
-     //if(i != 0)
+     //if(j != 0)
      //UART1_Write_Text("writing error");
      //UART1_Write(13);
 
      // now close the file (Log.txt)
-     i = FAT32_Close(fileHandle);
+     j = FAT32_Close(fileHandle);
      
      // wait 30s before next data point
      delay_ms(5000);     // wait 5 seconds
@@ -157,8 +173,8 @@ void logging_Init(){
   delay_ms(1000);     // wait 2 secods
 
   // initialize FAT32 library (& SD card)
-  i = FAT32_Init();
-  if(i != 0)
+  j = FAT32_Init();
+  if(j != 0)
   {  // if there was a problem while initializing the FAT32 library
     UART1_Write_Text("Error initializing FAT library (SD card missing?)!");
   }
@@ -194,7 +210,7 @@ void logging_Init(){
     //delay_ms(2000);     // wait 2 seconds
     // write some thing to the text file
     //UART1_Write_Text("\r\nWriting to the text file 'Log.txt' ... ");
-    i = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
+    j = FAT32_Write(fileHandle, "\r\nThis_is_a_text_file_created_using_PIC18F46K22_microcontroller_and_mikroC_compiler.\r\n", 113);
     /*
     if(i == 0)
       UART1_Write_Text("OK");
@@ -205,9 +221,9 @@ void logging_Init(){
     delay_ms(1000);     // wait 2 seconds
     // now close the file (Log.txt)
     //UART1_Write_Text("\r\nClosing the file 'Log.txt' ... ");
-    i = FAT32_Close(fileHandle);
+    j = FAT32_Close(fileHandle);
     /*
-    if(i == 0)
+    if(j == 0)
       UART1_Write_Text("OK");
     else
       UART1_Write_Text("closing error");
@@ -238,9 +254,9 @@ void logging_Init(){
       delay_ms(1000);     // wait 2 seconds
       // now close the file
       UART1_Write_Text("\r\n\r\nClosing the file ... ");
-      i = FAT32_Close(fileHandle);
+      j = FAT32_Close(fileHandle);
       /*
-      if(i == 0)
+      if(j == 0)
         UART1_Write_Text("OK");
       else
         UART1_Write_Text("closing error");

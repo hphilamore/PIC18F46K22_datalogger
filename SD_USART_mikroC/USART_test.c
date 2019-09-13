@@ -1,5 +1,6 @@
 /*
 
+
 Data logger using PIC18F46K22 microcontroller,  and DS3231 RTC.
 
 Configuration words     :     CONFIG1H : $300001 : 0x0028
@@ -32,7 +33,7 @@ https://www.studentcompanion.co.za/interfacing-the-ds1307-real-time-clock-with-p
 https://www.studentcompanion.co.za/interfacing-the-pcf8583-real-time-clock-with-pic-microcontroller-mikroc/
 https://simple-circuit.com/pic-mcu-ds1307-ds3231-i2c-lcd-mikroc/
 
-TODO : load ADC string conversion into buffer of correct length to see if UART overspill text problem is solved. Then you can addback in UART text if you want to
+
 
 */
 // SD card chip select pin connection

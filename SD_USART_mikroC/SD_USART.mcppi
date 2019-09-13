@@ -39,7 +39,7 @@ Count=1
 Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\
 Count=1
 [HEADERS]
-Count=1
+Count=0
 [PLDS]
 Count=0
 [Useses]
@@ -67,7 +67,7 @@ Count=2
 911=Additional Libraries
 912=FAT32 Library
 1989=Click_RTC_PIC
-Count=5
+Count=6
 [PROGRAMMER_TYPE]
 Value=mikroE mikroProg
 [CODEGRIP_OPTIONS]

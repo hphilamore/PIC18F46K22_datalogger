@@ -1,7 +1,6 @@
 main
 	__CC2DW
 	ADC_Init_Advanced
-	I2C2_Init
 	logging_Init
 		SPI1_Init_Advanced
 		UART1_Init
@@ -1388,28 +1387,6 @@ main
 						Mmc_Wait_Data_Ready
 							____DoIFC
 						____DoIFC
-<<<<<<< HEAD
-	RTC_Set
-		decimal_to_bcd
-			Div_8X8_U
-=======
-	RTC_Get
->>>>>>> parent of 7a63acd... RTc library removed
-		I2C2_Start
-			I2C2_Is_Idle
-			____DoIFC
-		I2C2_Wr
-			____DoIFC
-<<<<<<< HEAD
-		I2C2_Stop
-=======
-		I2C2_Repeated_Start
-			____DoIFC
-		I2C2_Rd
-			____DoIFC
-		I2C2_Stop
-		bcd_to_decimal
->>>>>>> parent of 7a63acd... RTc library removed
 	ReadADC_and_Log
 		ADC_Get_Sample
 			Delay_22us
@@ -2493,17 +2470,3 @@ main
 						____DoIFC
 						Mmc_DeSelect
 							____DoIFC
-	RTC_Get
-		I2C2_Start
-			I2C2_Is_Idle
-			____DoIFC
-		I2C2_Wr
-			____DoIFC
-		I2C2_Repeated_Start
-			____DoIFC
-		I2C2_Rd
-			____DoIFC
-		I2C2_Stop
-		bcd_to_decimal
-	UART1_Write_Text
-		UART1_Write

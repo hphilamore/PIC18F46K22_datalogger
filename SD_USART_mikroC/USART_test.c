@@ -23,6 +23,13 @@ https://simple-circuit.com/pic18f46k22-sd-card-fat32-mikroc/
 https://simple-circuit.com/mikroc-dht22-data-logger-sd-card/
 https://simple-circuit.com/pic18f46k22-bme280-data-logger-mikroc/
 
+RTC
+https://simple-circuit.com/rtc-ds1307-mikroc-library/
+https://simple-circuit.com/ds3231-mikroc-library-example/
+https://www.studentcompanion.co.za/interfacing-the-ds1307-real-time-clock-with-pic-microcontroller-mikroc/
+https://www.studentcompanion.net/en/interfacing-the-pcf8583-real-time-clock-with-pic-microcontroller-mikroc/
+https://www.studentcompanion.co.za/interfacing-the-ds1307-real-time-clock-with-pic-microcontroller-xc8/
+
 
 ADC to buffer
 https://www.studentcompanion.co.za/temperature-logger-to-sd-card-with-menu-control-mikroc/
@@ -38,7 +45,7 @@ TODO : load ADC string conversion into buffer of correct length to see if UART o
 sbit Mmc_Chip_Select           at RD4_bit;
 sbit Mmc_Chip_Select_Direction at TRISD4_bit;
 
-#define DS3231_I2C2    // use hardware I2C2 moodule (MSSP2) for DS3231 RTC
+//#define DS3231_I2C2    // use hardware I2C2 moodule (MSSP2) for DS3231 RTC
 //#include "DS3231.c"    // include DS3231 RTC driver source file
 
 
@@ -69,11 +76,10 @@ void main() {
                                        // bit6: PLL disabled [0]
                                        // bit5-0: oscillator tuning [000000]
 
-  ANSELA = 0;      // configure all PORTA pins as analog for data logging
+  ANSELA = 1;      // configure all PORTA pins as analog for data logging
   ANSELB = 0;         // configure all PORTB pins as digital
   ANSELC = 0;         // configure all PORTC pins as digital
   ANSELD = 0;         // configure all PORTD pins as digital
-  T0CON  = 0x04;      // configure Timer0 module (16-bit timer & prescaler = 32)
 
   // initialize ADC module with voltage references: VSS - FVR(4.096V)
   // ADC_Init_Advanced(_ADC_INTERNAL_VREFL | _ADC_INTERNAL_FVRH4);

@@ -1,74 +1,11 @@
 0	1	mikroCPIC1618.exe -MSF -DBG -pP18F46K22 -DL -O11111114 -fo16 -N"\\Mac\Home\Documents\Code\microC\PIC18F46K22_datalogger\SD_USART_mikroC\SD_USART.mcppi" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -SP"\\Mac\Home\Documents\Code\microC\PIC18F46K22_datalogger\SD_USART_mikroC\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\uses\P18\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Packages\FAT32 Library\Uses\" "USART_test.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CString.mcl" "__Lib_Conversions.mcl" "__Lib_ADC_K22_B.mcl" "__Lib_I2C_c34d01.mcl" "__Lib_SPI_c345d014.mcl" "__Lib_UART_c67d67.mcl" "__Lib_Mmc.mcl" "__Lib_FAT32_Driver.mcl" "__Lib_FAT32_Defs.mcl" "__Lib_FAT32.mcl"	 
 hint: 0	1139	Available RAM: 3875 [bytes], Available ROM: 65536 [bytes]	 
 diagnostics: 0	122	Compilation Started	USART_test.c
-<<<<<<< HEAD
-hint: 218	1354	argument may be out of range []	USART_test.c
-hint: 250	1354	argument may be out of range []	USART_test.c
-hint: 252	1354	argument may be out of range []	USART_test.c
-hint: 261	1354	argument may be out of range []	USART_test.c
-hint: 303	1354	argument may be out of range []	USART_test.c
-hint: 392	1354	argument may be out of range []	USART_test.c
-hint: 519	1163	Variable 't_lsb' has been declared, but not used	USART_test.c
-hint: 520	1163	Variable 'c_temp' has been declared, but not used	USART_test.c
-warning: 527	1503	Result is not defined in function: 'Get_Temperature'	USART_test.c
-hint: 565	1373	Argument is out of range []	USART_test.c
-warning: 579	1508	Implicit conversion of int to ptr	USART_test.c
-diagnostics: 748	123	Compiled Successfully	USART_test.c
-hint: 319	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 327	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 335	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 345	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 353	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 407	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 415	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 423	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 433	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 441	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 477	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 486	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 494	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 502	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 510	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 519	1164	Variable 't_msb' has been eliminated by optimizer	USART_test.c
-diagnostics: 0	127	All files Compiled in 110 ms	 
-hint: 0	1144	Used RAM (bytes): 2297 (59%)  Free RAM (bytes): 1578 (41%)	Used RAM (bytes): 2297 (59%)  Free RAM (bytes): 1578 (41%)
-hint: 0	1144	Used ROM (bytes): 34276 (52%)  Free ROM (bytes): 31260 (48%)	Used ROM (bytes): 34276 (52%)  Free ROM (bytes): 31260 (48%)
+diagnostics: 260	123	Compiled Successfully	USART_test.c
+diagnostics: 0	127	All files Compiled in 94 ms	 
+hint: 0	1144	Used RAM (bytes): 2264 (58%)  Free RAM (bytes): 1611 (42%)	Used RAM (bytes): 2264 (58%)  Free RAM (bytes): 1611 (42%)
+hint: 0	1144	Used ROM (bytes): 33048 (50%)  Free ROM (bytes): 32488 (50%)	Used ROM (bytes): 33048 (50%)  Free ROM (bytes): 32488 (50%)
 diagnostics: 0	125	Project Linked Successfully	SD_USART.mcppi
-diagnostics: 0	128	Linked in 156 ms	 
-diagnostics: 0	129	Project 'SD_USART.mcppi' completed: 297 ms	 
-diagnostics: 0	103	Finished successfully: 13 Sep 2019, 20:59:42	SD_USART.mcppi
-=======
-hint: 213	1354	argument may be out of range []	USART_test.c
-hint: 245	1354	argument may be out of range []	USART_test.c
-hint: 247	1354	argument may be out of range []	USART_test.c
-hint: 256	1354	argument may be out of range []	USART_test.c
-hint: 298	1354	argument may be out of range []	USART_test.c
-hint: 387	1354	argument may be out of range []	USART_test.c
-hint: 514	1163	Variable 't_lsb' has been declared, but not used	USART_test.c
-hint: 515	1163	Variable 'c_temp' has been declared, but not used	USART_test.c
-warning: 522	1503	Result is not defined in function: 'Get_Temperature'	USART_test.c
-diagnostics: 728	123	Compiled Successfully	USART_test.c
-hint: 314	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 322	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 330	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 340	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 348	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 402	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 410	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 418	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 428	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 436	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 472	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 481	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 489	1164	Variable 'stat_reg' has been eliminated by optimizer	USART_test.c
-hint: 497	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 505	1164	Variable 'ctrl_reg' has been eliminated by optimizer	USART_test.c
-hint: 514	1164	Variable 't_msb' has been eliminated by optimizer	USART_test.c
-diagnostics: 0	127	All files Compiled in 125 ms	 
-hint: 0	1144	Used RAM (bytes): 2273 (59%)  Free RAM (bytes): 1602 (41%)	Used RAM (bytes): 2273 (59%)  Free RAM (bytes): 1602 (41%)
-hint: 0	1144	Used ROM (bytes): 33546 (51%)  Free ROM (bytes): 31990 (49%)	Used ROM (bytes): 33546 (51%)  Free ROM (bytes): 31990 (49%)
-diagnostics: 0	125	Project Linked Successfully	SD_USART.mcppi
-diagnostics: 0	128	Linked in 172 ms	 
-diagnostics: 0	129	Project 'SD_USART.mcppi' completed: 344 ms	 
-diagnostics: 0	103	Finished successfully: 13 Sep 2019, 20:08:25	SD_USART.mcppi
->>>>>>> parent of 7a63acd... RTc library removed
+diagnostics: 0	128	Linked in 141 ms	 
+diagnostics: 0	129	Project 'SD_USART.mcppi' completed: 282 ms	 
+diagnostics: 0	103	Finished successfully: 13 Sep 2019, 21:10:29	SD_USART.mcppi
